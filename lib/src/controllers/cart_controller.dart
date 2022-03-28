@@ -1,6 +1,7 @@
+import 'package:elektrify/src/controllers/auth_controller.dart';
+import 'package:elektrify/src/requests/orderAvailabilityCheck.dart';
 import 'package:get/get.dart';
-import 'package:samkuev/src/controllers/auth_controller.dart';
-import 'package:samkuev/src/requests/orderAvailabilityCheck.dart';
+
 import '/src/controllers/shop_controller.dart';
 import '/src/models/address.dart';
 import '/src/models/card.dart';
@@ -37,7 +38,6 @@ class CartController extends GetxController {
   void onInit() {
     super.onInit();
     user.value = authController.getUser();
-
   }
 
   @override
@@ -92,7 +92,7 @@ class CartController extends GetxController {
     }
   }
 
-  double calculateAmount( ) {
+  double calculateAmount() {
     double sum = 0;
 
     // for (Product product in cartProducts) {
@@ -104,8 +104,6 @@ class CartController extends GetxController {
 
     return sum;
   }
-
-
 
   double calculateDiscount() {
     double sum = 0;
@@ -142,19 +140,19 @@ class CartController extends GetxController {
     if (proccess.value >= 1) proccessPercentage.value += 4;
   }
 
-  Future<void> orderSave(String startTime,String endTime,String date,String productId,String amount) async {
+  Future<void> orderSave(String startTime, String endTime, String date,
+      String productId, String amount) async {
     orderSent.value = true;
     shop = shopController.defaultShop.value;
     Address address = shopController.addressController.getDefaultAddress();
     User? user = shopController.authController.getUser();
 
-
     Map<String, dynamic> body = {
       // "total": calculateAmount() -
       //     calculateDiscount() +
       //     (shopController.deliveryType.value == 1 ? shop!.deliveryFee! : 0),
-      "total":amount,
-      "amount":amount,
+      "total": amount,
+      "amount": amount,
       "discount": calculateDiscount(),
       "delivery_date":
           "${shopController.deliveryDate.value} ${shopController.deliveryTimeString.value}",
@@ -167,10 +165,10 @@ class CartController extends GetxController {
       "shop": shop!.id.toString(),
       "comment": orderComment.value.toString(),
       "delivery_type": shopController.deliveryType.value.toString(),
-      "start_time":startTime,
-      "end_time":endTime,
-      "date":date,
-      "id_product":productId
+      "start_time": startTime,
+      "end_time": endTime,
+      "date": date,
+      "id_product": productId
     };
 
     Map<String, dynamic> data = await orderSaveRequest(body);
@@ -184,31 +182,28 @@ class CartController extends GetxController {
   }
 
   //for order availability api
-  Future<String> orderAvailabilityApi(startTime, endTime, date, productId) async {
-
-
+  Future<String> orderAvailabilityApi(
+      startTime, endTime, date, productId) async {
     Map<String, dynamic> body = {
-    'product_id':productId,
-      'start_time':startTime,
-      'end_time':endTime,
-      'date':date
+      'product_id': productId,
+      'start_time': startTime,
+      'end_time': endTime,
+      'date': date
     };
-   String flag="";
+    String flag = "";
     Map<String, dynamic> data = await orderAvailabilityCheck(body);
     print("---------cartController------------------$body");
     if (data['success']) {
-      if(data['data']['available']==true){
+      if (data['data']['available'] == true) {
         orderSent.value = false;
-        flag="true";
+        flag = "true";
         Get.back();
-      }else{
-       flag="false";
+      } else {
+        flag = "false";
       }
-
     }
     return flag;
   }
-
 
   void addToCard() {
     Card card = Card(

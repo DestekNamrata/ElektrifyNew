@@ -3,13 +3,13 @@
 // import 'package:get/get_instance/src/extension_instance.dart';
 // import 'package:get/get_rx/src/rx_types/rx_types.dart';
 // import 'package:get/get_state_manager/src/simple/get_controllers.dart';
-// import 'package:samkuev/src/controllers/currency_controller.dart';
-// import 'package:samkuev/src/controllers/language_controller.dart';
-// import 'package:samkuev/src/controllers/product_controller.dart';
-// import 'package:samkuev/src/controllers/shop_controller.dart';
-// import 'package:samkuev/src/models/chargerdetail.dart';
-// import 'package:samkuev/src/models/shop.dart';
-// import 'package:samkuev/src/requests/chargeingdetails_request.dart';
+// import 'package:elektrify/src/controllers/currency_controller.dart';
+// import 'package:elektrify/src/controllers/language_controller.dart';
+// import 'package:elektrify/src/controllers/product_controller.dart';
+// import 'package:elektrify/src/controllers/shop_controller.dart';
+// import 'package:elektrify/src/models/chargerdetail.dart';
+// import 'package:elektrify/src/models/shop.dart';
+// import 'package:elektrify/src/requests/chargeingdetails_request.dart';
 
 // class ChargeingDetailsController extends GetxController {
 //   final ShopController shopController = Get.put(ShopController());

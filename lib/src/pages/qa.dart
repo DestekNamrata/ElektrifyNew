@@ -1,7 +1,8 @@
+import 'package:elektrify/src/controllers/faq_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:samkuev/src/controllers/faq_controller.dart';
+
 import '/src/components/appbar.dart';
 import '/src/components/empty.dart';
 import '/src/components/qa_item.dart';

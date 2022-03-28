@@ -1,7 +1,7 @@
+import 'package:elektrify/src/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:samkuev/src/pages/home.dart';
 
 import '/src/controllers/product_controller.dart';
 import '/src/models/product.dart';

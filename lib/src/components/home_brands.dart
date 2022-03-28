@@ -1,14 +1,10 @@
+import 'package:elektrify/src/controllers/category_controller.dart';
+import 'package:elektrify/src/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:samkuev/config/global_config.dart';
-import 'package:samkuev/src/controllers/category_controller.dart';
-import 'package:samkuev/src/controllers/product_controller.dart';
-import 'package:samkuev/src/models/product.dart';
-import '/src/components/home_brand_item.dart';
+
 import '/src/components/shadows/home_brand_item_shadow.dart';
-import '/src/controllers/brands_controller.dart';
-import '/src/models/brand.dart';
 
 class HomeBrands extends GetView<CategoryController> {
   @override

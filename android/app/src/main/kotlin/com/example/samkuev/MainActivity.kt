@@ -1,4 +1,4 @@
-package com.example.samkuev
+package com.destek.elektrify
 
 import io.flutter.embedding.android.FlutterActivity
 
