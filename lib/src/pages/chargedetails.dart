@@ -1,11 +1,10 @@
+import 'package:elektrify/src/controllers/cart_controller.dart';
+import 'package:elektrify/src/pages/pamentmethod.dart';
+import 'package:elektrify/src/requests/chargeingdetails_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:google_place/google_place.dart';
-import 'package:samkuev/src/controllers/cart_controller.dart';
-import 'package:samkuev/src/pages/pamentmethod.dart';
-import 'package:samkuev/src/requests/chargeingdetails_request.dart';
 
 class ChargeingDetails extends StatefulWidget {
   int? qrdata;
@@ -33,13 +32,17 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
   int? time = 0;
   int? total = 0;
   var productId;
-  var startTime,endTime,totalAmt,date;
+  var startTime, endTime, totalAmt, date;
   @override
   void initState() {
     super.initState();
     print('-----------------${widget.qrdata.toString()}');
-    DateTime datetime=new DateTime.now();
-    date=datetime.year.toString()+"-"+datetime.month.toString()+"-"+datetime.day.toString();
+    DateTime datetime = new DateTime.now();
+    date = datetime.year.toString() +
+        "-" +
+        datetime.month.toString() +
+        "-" +
+        datetime.day.toString();
     getChagrgingDetaild();
   }
 
@@ -51,7 +54,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
       chargingtype = response['data']['charging_type'];
       price = response['data']['price'];
       power = response['data']['power'];
-      productId=response['data']['id'];
+      productId = response['data']['id'];
       discountprice = response['data']['discount_price'] ?? 0;
       print("------imageurl-----------$imageurl");
       print("------name-----------$name");
@@ -62,24 +65,39 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
     });
   }
 
-  void calculateTime(){
+  void calculateTime() {
     DateTime now = DateTime.now();
-    startTime=now.hour.toString()+":"+now.minute.toString()+":"+now.second.toString();
+    startTime = now.hour.toString() +
+        ":" +
+        now.minute.toString() +
+        ":" +
+        now.second.toString();
     DateTime end = now.add(new Duration(hours: int.parse(controllerTime.text)));
-    endTime=end.hour.toString()+":"+end.minute.toString()+":"+end.second.toString();
-    print("startTime:-"+startTime+" "+"endTime:-"+endTime.toString());
+    endTime = end.hour.toString() +
+        ":" +
+        end.minute.toString() +
+        ":" +
+        end.second.toString();
+    print("startTime:-" + startTime + " " + "endTime:-" + endTime.toString());
   }
 
-  void calculateTimeAsPerAmount(){
+  void calculateTimeAsPerAmount() {
     DateTime now = DateTime.now();
-    startTime=now.hour.toString()+":"+now.minute.toString()+":"+now.second.toString();
+    startTime = now.hour.toString() +
+        ":" +
+        now.minute.toString() +
+        ":" +
+        now.second.toString();
 
-    totalAmt=int.parse(controllerAmount.text)/price!;
-    int totalMin=getminutesFromString(totalAmt.toDouble());
+    totalAmt = int.parse(controllerAmount.text) / price!;
+    int totalMin = getminutesFromString(totalAmt.toDouble());
     DateTime end = now.add(new Duration(minutes: totalMin));
-    endTime=end.hour.toString()+":"+end.minute.toString()+":"+end.second.toString();
-    print("startTime:-"+startTime+" "+"endTime:-"+endTime.toString());
-
+    endTime = end.hour.toString() +
+        ":" +
+        end.minute.toString() +
+        ":" +
+        end.second.toString();
+    print("startTime:-" + startTime + " " + "endTime:-" + endTime.toString());
   }
 
   int getminutesFromString(double value) {
@@ -88,7 +106,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
     double decimalValue = value - flooredValue;
     // String hourValue = getHourString(flooredValue);
     String minuteString = getMinuteString(decimalValue);
-    int totalMin=(flooredValue*60)+int.parse(minuteString);
+    int totalMin = (flooredValue * 60) + int.parse(minuteString);
     print(totalMin);
     // return '$hourValue:$minuteString';
     return totalMin;
@@ -471,46 +489,55 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40),
                             side: const BorderSide(color: Colors.green)))),
-                onPressed: () async{
-                  if(_radioValue1==1){
-                    if(controllerAmount.text.isEmpty){
+                onPressed: () async {
+                  if (_radioValue1 == 1) {
+                    if (controllerAmount.text.isEmpty) {
                       Fluttertoast.showToast(msg: "Please enter amount");
-                    }else{
+                    } else {
                       calculateTimeAsPerAmount();
                       //updated by ND
-                      String result= await cartController.orderAvailabilityApi(startTime,endTime,date,productId);
-                          if(result=="true"){
-                            Get.to(
-                                PaymentMethod(startTime: startTime,endTime:endTime,date:date,productId: productId,amount:amount));
-                          }else{
-                            Fluttertoast.showToast(msg: "Not available,please enter another amount");
-                          }
+                      String result = await cartController.orderAvailabilityApi(
+                          startTime, endTime, date, productId);
+                      if (result == "true") {
+                        Get.to(PaymentMethod(
+                            startTime: startTime,
+                            endTime: endTime,
+                            date: date,
+                            productId: productId,
+                            amount: amount));
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Not available,please enter another amount");
+                      }
                       // await cartController
                       //     .orderAvailabilityApi(startTime,endTime,date,productId)
                       //     .whenComplete(() => Get.to(
                       //   PaymentMethod(startTime: startTime,endTime:endTime,date:date),));
                     }
-                  }else{
-                    if(controllerTime.text.isEmpty){
+                  } else {
+                    if (controllerTime.text.isEmpty) {
                       Fluttertoast.showToast(msg: "Please enter time");
-
-                    }else{
+                    } else {
                       calculateTime();
                       // Get.toNamed("/PaymentMethod");
-                            //updated by ND
-                      String result= await cartController.orderAvailabilityApi(startTime,endTime,date,productId);
-                      if(result=="true"){
-                        Get.to(
-                            PaymentMethod(startTime: startTime,endTime:endTime,date:date,productId: productId,amount:time));
-                      }else{
-                        Fluttertoast.showToast(msg: "Not Available,Please select another time");
+                      //updated by ND
+                      String result = await cartController.orderAvailabilityApi(
+                          startTime, endTime, date, productId);
+                      if (result == "true") {
+                        Get.to(PaymentMethod(
+                            startTime: startTime,
+                            endTime: endTime,
+                            date: date,
+                            productId: productId,
+                            amount: time));
+                      } else {
+                        Fluttertoast.showToast(
+                            msg: "Not Available,Please select another time");
                       }
                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentMethod(start)));
                     }
                   }
                   cartController.calculateAmount();
-
-
                 }),
           ],
         ),

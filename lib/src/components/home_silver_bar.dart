@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:elektrify/src/pages/chargedetails.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:maps_launcher/maps_launcher.dart';
-import 'package:samkuev/src/pages/chargedetails.dart';
 
 import '/config/global_config.dart';
 import '/src/controllers/notification_controller.dart';

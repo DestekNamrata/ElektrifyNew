@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:samkuev/config/global_config.dart';
+import 'package:elektrify/config/global_config.dart';
 import 'package:http/http.dart' as http;
-import 'package:samkuev/src/models/chargerdetail.dart';
 
 Future<Map<String, dynamic>> chargeingdetailsrequest(
     int idLang, int? id) async {

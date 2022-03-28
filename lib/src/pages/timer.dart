@@ -1,10 +1,9 @@
+import 'package:elektrify/src/controllers/product_controller.dart';
+import 'package:elektrify/src/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:samkuev/src/components/count_down_time.dart';
-import 'package:samkuev/src/controllers/product_controller.dart';
-import 'package:samkuev/src/models/product.dart';
 
 class TimerScreen extends GetView<ProductController> {
   final Product? product;

@@ -1,5 +1,26 @@
 import 'dart:io';
 
+import 'package:elektrify/routes.dart';
+import 'package:elektrify/src/controllers/about_controller.dart';
+import 'package:elektrify/src/controllers/address_controller.dart';
+import 'package:elektrify/src/controllers/auth_controller.dart';
+import 'package:elektrify/src/controllers/banner_controller.dart';
+import 'package:elektrify/src/controllers/brands_controller.dart';
+import 'package:elektrify/src/controllers/category_controller.dart';
+import 'package:elektrify/src/controllers/chat_controller.dart';
+import 'package:elektrify/src/controllers/currency_controller.dart';
+import 'package:elektrify/src/controllers/faq_controller.dart';
+import 'package:elektrify/src/controllers/language_controller.dart';
+import 'package:elektrify/src/controllers/notification_controller.dart';
+import 'package:elektrify/src/controllers/order_controller.dart';
+import 'package:elektrify/src/controllers/product_controller.dart';
+import 'package:elektrify/src/controllers/savings_controller.dart';
+import 'package:elektrify/src/controllers/settings_controller.dart';
+import 'package:elektrify/src/controllers/sign_in_controller.dart';
+import 'package:elektrify/src/controllers/sign_up_controller.dart';
+import 'package:elektrify/src/themes/dark_theme.dart';
+import 'package:elektrify/src/themes/light_theme.dart';
+import 'package:elektrify/src/utils/http_oveerrides.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -8,28 +29,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:samkuev/routes.dart';
-import 'package:samkuev/src/controllers/about_controller.dart';
-import 'package:samkuev/src/controllers/address_controller.dart';
-import 'package:samkuev/src/controllers/auth_controller.dart';
-import 'package:samkuev/src/controllers/banner_controller.dart';
-import 'package:samkuev/src/controllers/brands_controller.dart';
-import 'package:samkuev/src/controllers/category_controller.dart';
-import 'package:samkuev/src/controllers/chat_controller.dart';
-import 'package:samkuev/src/controllers/currency_controller.dart';
-import 'package:samkuev/src/controllers/faq_controller.dart';
-import 'package:samkuev/src/controllers/language_controller.dart';
-import 'package:samkuev/src/controllers/notification_controller.dart';
-import 'package:samkuev/src/controllers/order_controller.dart';
-import 'package:samkuev/src/controllers/product_controller.dart';
-import 'package:samkuev/src/controllers/savings_controller.dart';
-import 'package:samkuev/src/controllers/settings_controller.dart';
-import 'package:samkuev/src/controllers/sign_in_controller.dart';
-import 'package:samkuev/src/controllers/sign_up_controller.dart';
-import 'package:samkuev/src/themes/dark_theme.dart';
-import 'package:samkuev/src/themes/light_theme.dart';
-import 'package:samkuev/src/utils/http_oveerrides.dart';
-import 'package:samkuev/translations.dart';
+
 import 'src/controllers/shop_controller.dart';
 
 void initialize() {
@@ -121,7 +121,7 @@ class MyAppState extends State<MyApp> {
           builder: () => GetMaterialApp(
               //navigatorKey: Catcher.navigatorKey,
               // translations: widget.translations,
-              title: 'SamkuEv',
+              title: 'Elektrify',
               debugShowCheckedModeBanner: false,
               theme: lightTheme(),
               darkTheme: darkTheme(),

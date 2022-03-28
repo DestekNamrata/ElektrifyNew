@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.samkuev">
+    package="com.destek.elektrify">
          <uses-permission android:name="android.permission.INTERNET"/>
                 <queries>
     <intent>
@@ -9,9 +9,9 @@
     </intent>
 </queries>
    <application
-        android:label="samkuev"
+        android:label="elektrify"
          android:usesCleartextTraffic="true"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/app_icon">
          <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyA8UMyo69D9GyHdrNcmp0LIDHyb7C59RhI"/>
                
@@ -21,7 +21,8 @@
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustResize"
+            android:exported="true">
 
 
     

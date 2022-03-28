@@ -1,33 +1,57 @@
 {
   "project_info": {
-    "project_number": "389693889883",
-    "project_id": "samku-c4027",
-    "storage_bucket": "samku-c4027.appspot.com"
+    "project_number": "377179317914",
+    "project_id": "elektrify-9fab8",
+    "storage_bucket": "elektrify-9fab8.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:389693889883:android:3492b271f5002fee850e7e",
+        "mobilesdk_app_id": "1:377179317914:android:0f89f1316d2b44226c6123",
         "android_client_info": {
-          "package_name": "com.example.samkuev"
+          "package_name": "com.destek.elektrify"
         }
       },
       "oauth_client": [
         {
-          "client_id": "389693889883-v80hpin8jhafn6f18tjpkucpt8eun4ab.apps.googleusercontent.com",
+          "client_id": "377179317914-juh52iomvnvqoodq3ovn6ff7nc4k8397.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.destek.elektrify",
+            "certificate_hash": "9bf50243a7d356ad853da160b803c1d2c64aad33"
+          }
+        },
+        {
+          "client_id": "377179317914-qic96bi7r6frvufjpgbk2mqpvr5fbnd5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.destek.elektrify",
+            "certificate_hash": "a1aa3cbcd6b28e198618e0975fa267cf31634ef4"
+          }
+        },
+        {
+          "client_id": "377179317914-t1oibhdlhsomlib4d2ocqvjjvlmqu4eu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.destek.elektrify",
+            "certificate_hash": "b0d503d92a58f934adaeb8b0c38d9c2451c7ca97"
+          }
+        },
+        {
+          "client_id": "377179317914-u36a3h13a2242khmabv8ilq0mk5shorq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBFPkb1ZhJfox7Bqj37xyHf7GYRIltZu6o"
+          "current_key": "AIzaSyBZmnjGj_FBt9ypAlYRa-Vx0mxCq9Poe7U"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "389693889883-v80hpin8jhafn6f18tjpkucpt8eun4ab.apps.googleusercontent.com",
+              "client_id": "377179317914-u36a3h13a2242khmabv8ilq0mk5shorq.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,17 +1,10 @@
-import 'dart:ffi';
-
+import 'package:elektrify/src/controllers/category_controller.dart';
+import 'package:elektrify/src/pages/category_products.dart';
+import 'package:elektrify/src/pages/chargedetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:samkuev/src/controllers/category_controller.dart';
-import 'package:samkuev/src/pages/categories.dart';
-import 'package:samkuev/src/pages/category_products.dart';
-import 'package:samkuev/src/pages/chargedetails.dart';
-import 'package:samkuev/src/pages/sub_category_products.dart';
-import '/src/components/banners.dart';
-import '/src/components/home_category.dart';
-import '/src/components/home_brands.dart';
+
 import '/src/components/home_silver_bar.dart';
-import '/src/components/home_tabs.dart';
 import '/src/controllers/auth_controller.dart';
 import '/src/controllers/notification_controller.dart';
 
@@ -95,10 +88,10 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                             side: BorderSide(color: Colors.green)))),
                 onPressed: () =>
                     Future.delayed(Duration(milliseconds: 100), () {
-                      print("widget.qrdatawidget.qrdata+++++++++${widget.qrdata!}");
+                      print(
+                          "widget.qrdatawidget.qrdata+++++++++${widget.qrdata!}");
                       Get.to(
                         ChargeingDetails(qrdata: widget.qrdata!),
-
                       );
                       // Do something
                     })),
