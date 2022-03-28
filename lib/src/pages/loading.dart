@@ -11,21 +11,38 @@ class Loading extends GetView<AuthController> {
           ? const Color.fromRGBO(19, 20, 21, 1)
           : const Color.fromRGBO(243, 243, 240, 1),
       body: Container(
-          width: 1.sw,
-          height: 1.sh,
-          alignment: Alignment.center,
-          child: ClipRRect(
-              borderRadius: BorderRadius.circular(
-                0.5.sw,
-              ),
-              child: const SizedBox(
-                width: 60,
-                height: 60,
-                child: CircularProgressIndicator(
-                  strokeWidth: 5,
-                  color: Color.fromRGBO(69, 165, 36, 1),
+          // width: 1.sw,
+          // height: 1.sh,
+          // alignment: Alignment.center,
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                // Center(
+                //   child:
+                  Image.asset(
+                    'lib/assets/images/samkuEvlogo.png',
+                    // fit: BoxFit.contain,
+                    // width: double.infinity,
+                    // height: 1.sh,
+                  // ),
                 ),
-              ))),
+                // ClipRRect(
+                //     borderRadius: BorderRadius.circular(
+                //       0.5.sw,
+                //     ),
+                //     child:
+                    SizedBox(
+                      width: 20,
+                      height: 20,
+                      child:
+                      CircularProgressIndicator(
+                        strokeWidth: 5,
+                        color: Color.fromRGBO(69, 165, 36, 1),
+                      ),
+                    // )
+                          ),
+    ])),
     );
   }
 }
