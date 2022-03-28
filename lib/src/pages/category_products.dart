@@ -13,7 +13,12 @@ import '/src/models/product.dart';
 
 class CategoryProducts extends GetView<CategoryController> {
   final CategoryController categoryController = Get.put(CategoryController());
+  // int id = 3;
   int id = 3;
+  var tabIndex = 0.obs;
+
+
+
   Widget loading() {
     return Column(
       children: <Widget>[
@@ -37,10 +42,13 @@ class CategoryProducts extends GetView<CategoryController> {
     );
   }
 
+
   @override
   Widget build(BuildContext context) {
+
     return Obx(() {
       id = categoryController.activeCategory.value.id ?? 3;
+      // id = categoryController.activeCategory.value.id ?? 1;
 
       return SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 20),
@@ -60,29 +68,154 @@ class CategoryProducts extends GetView<CategoryController> {
                       child: Container(
                           width: 0.9.sw,
                           height: 0.06.sh,
-                          decoration: BoxDecoration(
-                              color: Colors.grey.shade100,
-                              borderRadius: BorderRadius.circular(60)),
+                          // decoration: BoxDecoration(
+                          //     color: Colors.grey.shade100,
+                          //     borderRadius: BorderRadius.circular(60)
+                          // ),
                           child: FutureBuilder<List<Category>>(
                             future: controller.getCategories(id, -1, 0),
                             builder: (context, snapshot) {
                               if (snapshot.hasData) {
                                 List<Category> categories = snapshot.data!;
                                 return ListView.builder(
+
                                     itemCount: categories.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
-                                      return CategoryItem(
-                                        name: categories[index].name,
-                                        id: categories[index].id,
-                                        // isActive:
-                                        //     controller.activeCategory.value ==
-                                        //         categories[index],
-                                        onClick: () =>
-                                            controller.onChangeProductType(
-                                                categories[index]),
+                                      // return CategoryItem(
+                                      //   name: categories[index].name,
+                                      //   id: categories[index].id,
+                                      //   isActive:
+                                      //       controller.activeCategory.value ==
+                                      //           categories[index],
+                                      //   onClick: () =>
+                                      //       controller.onChangeProductType(
+                                      //           categories[index]),
+                                      // );
+                                      return InkWell(
+                                        onTap: () {
+                                          tabIndex.value=index;
+                                          controller.inActiveCategory.value = controller.activeCategory.value;
+                                          controller.activeCategory.value = Category(id: categories[index].id, name: categories[index].name);
+                                          controller.productController.clearFilter();
+                                          controller.load.value = true;
+                                          // controller.categoryProductList[id ?? 3] = [];
+                                          // Get.toNamed("/subCategoryProducts");
+                                        },
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(3.0),
+                                          child: Container(
+                                            height: 0.05.sh,
+                                            width: 0.28.sw,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(60),
+                                              color: tabIndex.value==index
+                                                  ? const Color.fromRGBO(69, 165, 36, 1)
+                                                  : const Color.fromRGBO(233, 233, 230, 1),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                categories[index].name.toString(),
+                                                style: TextStyle(
+                                                  fontFamily: 'Inter',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 14.sp,
+                                                  letterSpacing: -0.2,
+                                                  color: tabIndex.value==index
+                                                ? Colors.white
+                                                      :Colors.black,
+
+                                                  // color: id != null
+                                                  //     ? Colors.white
+                                                  //     : Get.isDarkMode
+                                                  //         ? Colors.white
+                                                  //         : Colors.black
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        // child: Center(
+                                        //   child: Text(
+                                        //     "$name",
+                                        //     maxLines: 2,
+                                        //     overflow: TextOverflow.clip,
+                                        //     textAlign: TextAlign.center,
+                                        //     style: TextStyle(
+                                        //         fontFamily: 'Inter',
+                                        //         fontWeight: FontWeight.w500,
+                                        //         fontSize: 14.sp,
+                                        //         letterSpacing: -0.58,
+                                        //         color: Get.isDarkMode
+                                        //             ? Color.fromRGBO(255, 255, 255, 1)
+                                        //             : Color.fromRGBO(0, 0, 0, 1)),
+                                        //   ),
+                                        // ),
                                       );
                                     });
+                                // return  ClipRRect(
+                                //     borderRadius: BorderRadius.circular(10),
+                                //     child: SizedBox(
+                                //         height: 34,
+                                //         width: 0.9.sw,
+                                //         child: ListView.builder(
+                                //             itemCount: categories.length,
+                                //             scrollDirection: Axis.horizontal,
+                                //             itemBuilder: (context, index) {
+                                //               return Obx(() => InkWell(
+                                //                 child: Container(
+                                //                   padding:
+                                //                   const EdgeInsets
+                                //                       .symmetric(
+                                //                       horizontal: 20),
+                                //                   margin: const EdgeInsets
+                                //                       .only(right: 8),
+                                //                   height: 34,
+                                //                   alignment:
+                                //                   Alignment.center,
+                                //                   decoration:
+                                //                   BoxDecoration(
+                                //                       color:
+                                //                           tabIndex.value ==
+                                //                           index
+                                //                           ? const Color.fromRGBO(69, 165, 36, 1)
+                                //                           : Get.isDarkMode
+                                //                           ? const Color.fromRGBO(26, 34, 44, 1)
+                                //                           : const Color.fromRGBO(233, 233, 230, 1),
+                                //                       borderRadius:
+                                //                       BorderRadius.circular(40)),
+                                //                   child:
+                                //                   // call api for brands
+                                //                   //showBrands();
+                                //                   Text(
+                                //                     categories[index].name.toString(),
+                                //                     style: TextStyle(
+                                //                         fontFamily: 'Inter',
+                                //                         fontWeight: FontWeight.w500,
+                                //                         fontSize: 14.sp,
+                                //                         letterSpacing:
+                                //                         -0.5,
+                                //                         color: tabIndex.value == index
+                                //                             ? Colors.white
+                                //                             : Get.isDarkMode
+                                //                             ? Colors.white
+                                //                             : const Color
+                                //                             .fromRGBO(0, 0, 0, 1)),
+                                //                   ),
+                                //                 ),
+                                //                 onTap: () {
+                                //                   tabIndex.value = index;
+                                //                   controller.onChangeProductType(categories[index]);
+                                //                   controller.inActiveCategory.value = controller.activeCategory.value;
+                                //                   controller.activeCategory.value = Category(id: categories[index].id, name: categories[index].name);
+                                //                   controller.productController.clearFilter();
+                                //                   controller.load.value = true;
+                                //                   controller.categoryProductList[id ?? 3] = [];
+                                //                   //call brand wise stations API
+                                //                   //https://{{demo_url}}/api/m/brands/shops
+                                //                 },
+                                //               ));
+                                //             })));
                               } else if (snapshot.hasError) {
                                 return Text("${snapshot.error}");
                               }
@@ -104,14 +237,16 @@ class CategoryProducts extends GetView<CategoryController> {
               child: FutureBuilder<List<Product>>(
                 future: controller.getCategoryProducts(id, false),
                 builder: (context, snapshot) {
-                  if (snapshot.hasData &&
-                      (!controller.load.value ||
-                          controller.categoryProductList[id]!.isNotEmpty)) {
+                  if (snapshot.hasData && !controller.load.value)
+                    // (!controller.load.value || controller.categoryProductList[id]!.isNotEmpty))
+                  {
                     List<Widget> row = [];
                     if (snapshot.hasData) {
                       List<Product> products = snapshot.data ?? [];
                       return products.isNotEmpty
                           ? ListView.builder(
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
                               itemCount: products.length,
                               scrollDirection: Axis.vertical,
                               padding:

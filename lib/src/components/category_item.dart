@@ -13,6 +13,7 @@ class CategoryItem extends GetView<CategoryController> {
   final bool? isActive;
   final Function()? onClick;
 
+
   const CategoryItem(
       {this.id, this.imageUrl, this.name, this.isActive, this.onClick});
 
@@ -28,27 +29,32 @@ class CategoryItem extends GetView<CategoryController> {
         controller.categoryProductList[id ?? 3] = [];
         // Get.toNamed("/subCategoryProducts");
       },
-      child: Container(
-        height: 0.05.sh,
-        width: 0.3.sw,
-        decoration: BoxDecoration(
-            // color: controller.load.isTrue
-            //     ? const Color.fromRGBO(69, 165, 36, 1)
-            //     : const Color.fromRGBO(233, 233, 230, 1),
-            ),
-        child: Center(
-          child: Text(
-            "$name",
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontWeight: FontWeight.w500,
-              fontSize: 14.sp,
-              letterSpacing: -0.2,
-              // color: id != null
-              //     ? Colors.white
-              //     : Get.isDarkMode
-              //         ? Colors.white
-              //         : Colors.black
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: Container(
+          height: 0.05.sh,
+          width: 0.3.sw,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(60),
+              color: controller.load.isTrue
+                  ? const Color.fromRGBO(69, 165, 36, 1)
+                  : const Color.fromRGBO(233, 233, 230, 1),
+              ),
+          child: Center(
+            child: Text(
+              "$name",
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontWeight: FontWeight.w500,
+                fontSize: 14.sp,
+                letterSpacing: -0.2,
+
+                // color: id != null
+                //     ? Colors.white
+                //     : Get.isDarkMode
+                //         ? Colors.white
+                //         : Colors.black
+              ),
             ),
           ),
         ),

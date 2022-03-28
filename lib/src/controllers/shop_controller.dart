@@ -44,7 +44,8 @@ class ShopController extends GetxController with SingleGetTickerProviderMixin {
     super.onInit();
 
     tabController = new TabController(length: 2, vsync: this);
-    // user.value = authController.getUser();
+    user.value = authController.getUser();
+
 
     this.getSavedShopList();
     this.getShopCategories();

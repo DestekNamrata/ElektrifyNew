@@ -13,7 +13,7 @@ Future<Map<String, dynamic>> orderSaveRequest(Map<String, dynamic> body) async {
 
   final client = new http.Client();
 
-  Map<String, String> body = {};
+  // Map<String, String> body = {};
 
   final response = await client.post(Uri.parse(url),
       headers: headers, body: json.encode(body));

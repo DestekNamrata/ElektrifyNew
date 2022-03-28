@@ -29,7 +29,7 @@ class HomeSilverBar extends StatelessWidget {
   Widget build(BuildContext context) {
     Shop? shop = shopController.defaultShop.value;
     return SliverAppBar(
-      expandedHeight: 300,
+      expandedHeight: 320,
       floating: false,
       automaticallyImplyLeading: false,
       pinned: true,

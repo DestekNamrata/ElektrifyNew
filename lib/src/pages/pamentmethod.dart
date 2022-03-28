@@ -1,14 +1,23 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:get/get_navigation/src/extension_navigation.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:samkuev/src/components/card_item.dart';
 import 'package:samkuev/src/components/checkout_head.dart';
+import 'package:samkuev/src/controllers/auth_controller.dart';
 import 'package:samkuev/src/controllers/cart_controller.dart';
 
 class PaymentMethod extends StatefulWidget {
-  const PaymentMethod({Key? key}) : super(key: key);
+  var startTime,endTime,date,productId,amount;
+
+  PaymentMethod({Key? key,@required this.startTime,@required this.endTime,@required this.date,
+  @required this.productId,@required this.amount}) : super(key: key);
 
   @override
   _PaymentMethodState createState() => _PaymentMethodState();
@@ -16,14 +25,127 @@ class PaymentMethod extends StatefulWidget {
 
 class _PaymentMethodState extends State<PaymentMethod> {
   CartController cartController = CartController();
-
+  Razorpay? _razorpay ;
+  String paymentId="";
+  var razorPayKey='rzp_test_5Iy4UkUkWSt7Db',  //test:-given by sachin
+      razorPaySecretKey='imvl6mdmdCI2Oa4Er6fXCgQW';
   bool _value = false;
   int val = -1;
+  final AuthController authController = Get.put(AuthController());
+  // var user = Rxn<User>();
+  User? user;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     cartController = CartController();
+
+    _razorpay = Razorpay();
+    _razorpay!.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+    _razorpay!.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+    _razorpay!.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    // Fluttertoast.showToast(
+    //     msg: "SUCCESS: " + response.paymentId, toastLength: Toast.LENGTH_SHORT);
+    paymentId=response.paymentId.toString();
+    doPayment();
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    Fluttertoast.showToast(
+        msg: "ERROR: " + response.code.toString() + " - " + response.message.toString(),
+        toastLength: Toast.LENGTH_SHORT);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    Fluttertoast.showToast(
+        msg: "EXTERNAL_WALLET: " + response.walletName.toString(), toastLength: Toast.LENGTH_SHORT);
+  }
+
+
+  //for checkout optios
+  void openCheckout() async {
+    // double amt=(cartController.calculateAmount()+cartController.calculateDiscount())*100;
+
+   var phone=cartController.authController.phone.toString() ;
+
+    double amt=(double.parse(widget.amount.toString()))*100;
+    print("amt:-"+amt.toString());
+    var options = {
+      'key': razorPayKey,
+      'amount':amt,
+      // 'amount':100,
+      'name': 'Samku',
+      // 'order_ID':widget.productId,
+      // 'description': widget.cartDet[0].producerName,
+      'prefill': {'contact': cartController.authController.phone.toString(), 'email': cartController.authController.email.toString()},
+      'external': {
+        'wallets': ['paytm']
+      }
+    };
+
+    try {
+      _razorpay!.open(options);
+    } catch (e) {
+      debugPrint('Error: e');
+    }
+  }
+
+  //called method for payment
+  void doPayment() async
+  {
+    await cartController
+        .orderSave(widget.startTime,widget.endTime,widget.date,widget.productId.toString(),widget.amount.toString())
+        .whenComplete(() {
+          _showMessage();
+    });
+  }
+
+  Future<void> _showMessage() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Payment",
+              style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w400,
+                  color: Colors.black)),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  "Payment done successfully.",
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                "OK",
+              ),
+              onPressed: () {
+                Get.offAndToNamed("/location");
+                },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _razorpay!.clear();
   }
 
   @override
@@ -109,6 +231,18 @@ class _PaymentMethodState extends State<PaymentMethod> {
                       onTap: () {
                         setState(() {
                           cartController.paymentType.value = 1;
+                        });
+                      },
+                    ),
+                    InkWell(
+                      child: CardItem(
+                        title: "RazorPay",
+                        icon: const IconData(0xedf0, fontFamily: 'MIcon'),
+                        isActive: cartController.paymentType.value == 2,
+                      ),
+                      onTap: () {
+                        setState(() {
+                          cartController.paymentType.value = 2;
                         });
                       },
                     ),
@@ -233,9 +367,15 @@ class _PaymentMethodState extends State<PaymentMethod> {
                             borderRadius: BorderRadius.circular(40),
                             side: BorderSide(color: Colors.green)))),
                 onPressed: () async {
+                if(cartController.paymentType.value ==2){
+                  openCheckout();
+                }else{
                   await cartController
-                      .orderSave()
-                      .whenComplete(() => Get.toNamed("/PaymentDone"));
+                      .orderSave(widget.startTime,widget.endTime,widget.date,widget.productId.toString(),widget.amount.toString())
+                      .whenComplete(() => Get.toNamed("/location")
+                      // Get.toNamed("/PaymentDone",arguments: user!.phoneNumber.toString())
+                  );
+                }
 
                   // Get.toNamed("/PaymentDone");
                 }),

@@ -30,6 +30,7 @@ class CategoryProductItem extends GetView<ProductController> {
           selected: isSelected,
           onTap: () {
             controller.activeProduct.value.id;
+
             Get.to(Home(qrdata: product!.id), arguments: [
               {},
             ]);

@@ -66,6 +66,10 @@ dependencies:
   flutter_local_notifications: ^9.0.2
   catcher: ^0.6.8
   maps_launcher: ^2.0.1
+  #razorpay
+  razorpay_flutter: ^1.2.3
+  fluttertoast: ^8.0.6
+
 
 dev_dependencies:
   flutter_test:

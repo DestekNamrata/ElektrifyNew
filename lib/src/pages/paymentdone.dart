@@ -4,7 +4,8 @@ import 'package:get/get.dart';
 import 'package:samkuev/src/pages/timer.dart';
 
 class PaymentDone extends StatefulWidget {
-  const PaymentDone({Key? key}) : super(key: key);
+ String? mobile;
+ PaymentDone({Key? key,@required this.mobile}) : super(key: key);
 
   @override
   _PaymentDoneState createState() => _PaymentDoneState();
@@ -16,7 +17,8 @@ class _PaymentDoneState extends State<PaymentDone> {
     super.initState();
 
     Future.delayed(
-        const Duration(seconds: 5), () => Get.toNamed("/TimerScreen"));
+        // const Duration(seconds: 5), () => Get.toNamed("/TimerScreen"));
+        const Duration(seconds: 5), () => Get.toNamed("/home"));
   }
   @override
   Widget build(BuildContext context) {
@@ -46,7 +48,7 @@ class _PaymentDoneState extends State<PaymentDone> {
             SizedBox(
               height: 0.04.sh,
             ),
-            const Text('+918668876894',
+            Text(widget.mobile.toString(),
                 style: TextStyle(
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,

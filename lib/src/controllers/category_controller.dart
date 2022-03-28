@@ -42,6 +42,8 @@ class CategoryController extends GetxController {
     if (shop != null && shop!.id != null && categoryList.length == 0) {
       getCategories(-1, 10, 0);
     }
+    //updated on 25/03/2022 by ND
+    getCategoryProducts(3, false);
   }
 
   @override
@@ -156,7 +158,8 @@ class CategoryController extends GetxController {
                     : 0,
                 name: item['language']['name'],
                 description: item['language']['description'],
-                amount: int.parse(item['quantity'].toString()),
+                amount: item['quantity']!=null?int.parse(item['quantity'].toString())
+                :0,
                 image: item['images'][0]['image_url'],
                 images: item['images'],
                 startTime: startTime,
