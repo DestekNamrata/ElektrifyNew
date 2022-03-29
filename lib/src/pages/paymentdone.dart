@@ -16,9 +16,9 @@ class _PaymentDoneState extends State<PaymentDone> {
     super.initState();
 
     Future.delayed(
-        // const Duration(seconds: 5), () => Get.toNamed("/TimerScreen"));
-        const Duration(seconds: 5),
-        () => Get.toNamed("/home"));
+        const Duration(seconds: 5), () => Get.toNamed("/TimerScreen"));
+    // const Duration(seconds: 5),
+    // () => Get.toNamed("/home"));
   }
 
   @override

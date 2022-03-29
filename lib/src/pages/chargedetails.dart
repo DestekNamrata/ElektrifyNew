@@ -109,6 +109,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
     int totalMin = (flooredValue * 60) + int.parse(minuteString);
     print(totalMin);
     // return '$hourValue:$minuteString';
+    cartController.duration.value = totalMin;
     return totalMin;
   }
 
@@ -495,6 +496,10 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
                       Fluttertoast.showToast(msg: "Please enter amount");
                     } else {
                       calculateTimeAsPerAmount();
+                      cartController.amount.value = amount!;
+                      cartController.discount.value = discountprice!;
+                      cartController.port.value = "$name";
+                      cartController.type.value = "$chargingtype";
                       //updated by ND
                       String result = await cartController.orderAvailabilityApi(
                           startTime, endTime, date, productId);

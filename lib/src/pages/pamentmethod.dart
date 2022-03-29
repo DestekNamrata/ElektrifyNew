@@ -142,7 +142,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
                 "OK",
               ),
               onPressed: () {
-                Get.offAndToNamed("/location");
+                Get.offAndToNamed("/TimerScreen");
               },
             ),
           ],

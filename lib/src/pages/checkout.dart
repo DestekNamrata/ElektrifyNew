@@ -1,7 +1,9 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/shims/dart_ui_real.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import '/src/components/add_card.dart';
 import '/src/components/appbar.dart';
 import '/src/components/card_item.dart';
@@ -12,7 +14,6 @@ import '/src/components/checkout_dot.dart';
 import '/src/components/checkout_head.dart';
 import '/src/components/checkout_textfield.dart';
 import '/src/controllers/cart_controller.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '/src/models/address.dart';
 import '/src/models/user.dart';
 
@@ -918,7 +919,21 @@ class Checkout extends GetView<CartController> {
                           onTap: () {
                             if (controller.shopController.deliveryDateString
                                     .value.length >
-                                0) controller.orderSave("","","","","");
+                                0) {
+                              // controller.discount.value =
+                              //     controller.calculateDiscount() as int;
+                              // controller.amount.value =
+                              //     controller.calculateAmount() as int;
+                              // controller.tax.value =
+                              //     controller.proccessPercentage as int;
+                              // controller.total.value =
+                              //     controller.calculateDiscount as int;
+                              controller.orderSave("", "", "", "", "");
+                              // controller.total.value =
+                              //     controller.calculateAmount() -
+                              //         controller.calculateDiscount() +
+                              //         controller.shop!.deliveryFee!;
+                            }
                           },
                         ),
                       if (controller.proccess.value == 2 &&

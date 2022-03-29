@@ -33,6 +33,14 @@ class CartController extends GetxController {
   var cards = <Card>[].obs;
   var activeCardNumber = "".obs;
   var isCardAvailable = false.obs;
+  var amount = 0.obs;
+  var discount = 0.obs;
+  var tax = 0.obs;
+  var total = 0.obs;
+  var duration = 0.obs;
+
+  var port = "".obs;
+  var type = "".obs;
 
   @override
   void onInit() {
