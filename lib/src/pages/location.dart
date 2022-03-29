@@ -3,7 +3,9 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elektrify/src/models/user.dart';
+import 'package:elektrify/src/pages/chargedetails.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -65,7 +67,7 @@ class LocationPage extends GetView<AddressController> {
                     child: Column(
                       children: <Widget>[
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Container(
                               width: 0.1.sw,
@@ -77,13 +79,14 @@ class LocationPage extends GetView<AddressController> {
                                       color: Get.isDarkMode
                                           ? Color.fromRGBO(130, 139, 150, 0.1)
                                           : Colors.green),
-                                  borderRadius: BorderRadius.circular(50)),
+                                  borderRadius: BorderRadius.circular(40)),
                               child: InkWell(
                                   onTap: () {
                                     Get.toNamed("/profile");
                                   },
                                   child: user!.imageUrl!.length > 4
-                                      ? ClipRRect(
+                                      ?
+                                  ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(20),
                                           child: CachedNetworkImage(
@@ -117,6 +120,8 @@ class LocationPage extends GetView<AddressController> {
                                           size: 20,
                                         )),
                             ),
+                            Expanded(
+                                child:
                             Container(
                               margin: const EdgeInsets.only(left: 5),
                               width: 1.sw - 100,
@@ -179,51 +184,96 @@ class LocationPage extends GetView<AddressController> {
                                   ),
                                 ),
                               ),
+                            )
                             ),
 
                             // scanner
-                            /* Container(
-                              width: 0.05.sw,
-                              height: 0.045.sh,
+                            Container(
+                              // width: 0.1.sw,
+                              // height: 0.045.sh,
                               alignment: Alignment.center,
-                              margin: const EdgeInsets.only(right: 5, top: 0),
+                              margin: EdgeInsets.only(left: 8.0),
                               decoration: BoxDecoration(
-                                color: Colors.green,
-                                border: Border.all(
-                                    width: 3,
-                                    color: Get.isDarkMode
-                                        ? Color.fromRGBO(130, 139, 150, 0.1)
-                                        : Colors.green),
-                                //borderRadius: BorderRadius.circular(50)
+                                  color: Colors.green,
+                                  border: Border.all(
+                                      width: 3,
+                                      color: Get.isDarkMode
+                                          ? Color.fromRGBO(130, 139, 150, 0.1)
+                                          : Colors.green),
+                                  // borderRadius: BorderRadius.circular(50)
                               ),
                               child: InkWell(
-                                child: const Icon(
-                                  Icons.qr_code_2_rounded,
-                                  color: Colors.black,
-                                  size: 35,
-                                ),
-                                onTap: () async {
-                                  var qrdata =
-                                      await FlutterBarcodeScanner.scanBarcode(
-                                          "red", "Cancel", true, ScanMode.QR);
+                                  onTap: () async{
+                                    var qrdata = await FlutterBarcodeScanner.scanBarcode(
+                                        "red", "Cancel", true, ScanMode.QR);
 
-                                  print(
-                                      '-------------------${qrdata.toString()}');
-                                  Future.delayed(Duration(milliseconds: 100),
-                                      () {
-                                    Get.to(
-                                        ChargeingDetails(
-                                          qrdata: int.parse(qrdata.trim()),
-                                        ),
-                                        arguments: [
-                                          {},
-                                        ]);
-                                    // Do something
-                                  });
-                                },
-                                //      )
-                              ),
-                            )*/
+                                    print('-------------------${qrdata.toString()}');
+                                    // check when coming from cancel button=-1
+                                    if(qrdata!="-1"){
+                                      Future.delayed(Duration(milliseconds: 100),
+                                              () {
+                                            Get.to(
+                                                ChargeingDetails(
+                                                  qrdata: int.parse(qrdata.trim()),
+                                                ),
+                                                arguments: [
+                                                  {},
+                                                ]);
+                                            // Do something
+                                          });
+                                    }else{
+                                      Get.back();
+                                    }
+
+                                  },
+                                  child: Icon(Icons.qr_code_2_rounded,
+                                    color: Colors.black,
+                                    size: 35,
+                                  ),
+                            ),
+    //                         Container(
+    //                           width: 0.05.sw,
+    //                           height: 0.045.sh,
+    //                           alignment: Alignment.center,
+    //                           margin: const EdgeInsets.only(right: 5, top: 0),
+    //                           decoration: BoxDecoration(
+    //                             color: Colors.green,
+    //                             border: Border.all(
+    //                                 width: 3,
+    //                                 color: Get.isDarkMode
+    //                                     ? Color.fromRGBO(130, 139, 150, 0.1)
+    //                                     : Colors.green),
+    //                             //borderRadius: BorderRadius.circular(50)
+    //                           ),
+    //                           child: InkWell(
+    //                             child:Icon(
+    //                               Icons.qr_code_2_rounded,
+    //                               color: Colors.black,
+    //                               size: 35,
+    //                             ),
+    //                             onTap: () async {
+    // // Get.toNamed("/profile");
+    //                               var qrdata =
+    //                                   await FlutterBarcodeScanner.scanBarcode(
+    //                                       "red", "Cancel", true, ScanMode.QR);
+    //
+    //                               print(
+    //                                   '-------------------${qrdata.toString()}');
+    //                               Future.delayed(Duration(milliseconds: 100),
+    //                                   () {
+    //                                 Get.to(
+    //                                     ChargeingDetails(
+    //                                       qrdata: int.parse(qrdata.trim()),
+    //                                     ),
+    //                                     arguments: [
+    //                                       {},
+    //                                     ]);
+    //                                 // Do something
+    //                               });
+    //                             },
+    //                             //      )
+    //                           ),
+                            )
                           ],
                         ),
                         if (controller.isSearch.value)

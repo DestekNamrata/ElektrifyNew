@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:elektrify/src/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,15 +10,18 @@ import '/src/models/product.dart';
 
 class CategoryProductItem extends GetView<ProductController> {
   final Product? product;
+  final Function()? onClick;
+  bool isSelected;
 
-  CategoryProductItem({this.product});
+  CategoryProductItem({this.product,this.onClick,required this.isSelected});
 
   @override
   Widget build(BuildContext context) {
     int now = DateTime.now().toUtc().millisecondsSinceEpoch;
     bool timerStarted = product!.startTime! <= now && product!.endTime! >= now;
-    bool isSelected = false;
-    return Card(
+    return
+      Card(
+        // color: isSelected?Colors.green:Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -24,7 +29,8 @@ class CategoryProductItem extends GetView<ProductController> {
       shadowColor: Colors.grey,
       child: Padding(
         padding: const EdgeInsets.all(5.0),
-        child: ListTile(
+        child:
+        ListTile(
           selectedColor: Colors.green,
           selectedTileColor: Colors.green,
           selected: isSelected,

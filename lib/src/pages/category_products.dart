@@ -16,6 +16,8 @@ class CategoryProducts extends GetView<CategoryController> {
   // int id = 3;
   int id = 3;
   var tabIndex = 0.obs;
+  int listIndexClicked=0;
+  bool isSelected=false;
 
 
 
@@ -45,10 +47,9 @@ class CategoryProducts extends GetView<CategoryController> {
 
   @override
   Widget build(BuildContext context) {
-
     return Obx(() {
+
       id = categoryController.activeCategory.value.id ?? 3;
-      // id = categoryController.activeCategory.value.id ?? 1;
 
       return SingleChildScrollView(
         padding: const EdgeInsets.only(bottom: 20),
@@ -256,7 +257,11 @@ class CategoryProducts extends GetView<CategoryController> {
                                 print(product.toString());
                                 return Expanded(
                                   child: CategoryProductItem(
+                                    isSelected: listIndexClicked==index?true:false,
                                     product: products[index],
+                                    onClick: (){
+                                      isSelected=true;
+                                  }
                                   ),
                                 );
                               })

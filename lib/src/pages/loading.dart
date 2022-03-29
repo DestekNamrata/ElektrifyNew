@@ -18,14 +18,14 @@ class Loading extends GetView<AuthController> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                // Center(
-                //   child:
+                Center(
+                  child:
                   Image.asset(
                     'lib/assets/images/samkuEvlogo.png',
                     // fit: BoxFit.contain,
                     // width: double.infinity,
                     // height: 1.sh,
-                  // ),
+                  ),
                 ),
                 // ClipRRect(
                 //     borderRadius: BorderRadius.circular(
@@ -37,7 +37,7 @@ class Loading extends GetView<AuthController> {
                       height: 20,
                       child:
                       CircularProgressIndicator(
-                        strokeWidth: 5,
+                        strokeWidth:3,
                         color: Color.fromRGBO(69, 165, 36, 1),
                       ),
                     // )

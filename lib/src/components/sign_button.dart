@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignButton extends StatelessWidget {
   final String? title;
-  final Function()? onClick;
+  final Function() onClick;
   final bool? loading;
 
-  SignButton({this.title, this.onClick, this.loading = false});
+  SignButton({this.title, required this.onClick, this.loading = false});
 
   @override
   Widget build(BuildContext build) {

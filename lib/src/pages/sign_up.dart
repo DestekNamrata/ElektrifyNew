@@ -1,8 +1,14 @@
 import 'dart:ui';
 
+import 'package:elektrify/src/models/model_vehicleModel.dart';
+import 'package:elektrify/src/networkFunction/fetchManufactVehicleType.dart';
+import 'package:elektrify/src/requests/manufacture_request.dart';
+import 'package:elektrify/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../models/manufacture_model.dart';
+import '../networkFunction/fetchVehicleModel.dart';
 import '/config/global_config.dart';
 import '/src/components/extended_sign_button.dart';
 import '/src/components/password_input.dart';
@@ -17,6 +23,11 @@ class SignUpPage extends StatefulWidget {
 
 class SignUpPageState extends State<SignUpPage> {
   final SignUpController controller = Get.put(SignUpController());
+  Data? _manufactureSelected,vehicleTypeSelected;
+  Model? vehicleModelSelected;
+  bool flagSignUp=false;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -118,20 +129,20 @@ class SignUpPageState extends State<SignUpPage> {
                                         : Color.fromRGBO(0, 0, 0, 1),
                                     height: 1,
                                   ),
+                                  // TextInput(
+                                  //   title: "Car/Bike Name*".tr,
+                                  //   placeholder: "Antonio",
+                                  //   defaultValue: controller.bikeName.value,
+                                  //   onChange: controller.onChangeBikeName,
+                                  // ),
+                                  // Divider(
+                                  //   color: Get.isDarkMode
+                                  //       ? Color.fromRGBO(255, 255, 255, 1)
+                                  //       : Color.fromRGBO(0, 0, 0, 1),
+                                  //   height: 1,
+                                  // ),
                                   TextInput(
-                                    title: "Car/Bike Name*".tr,
-                                    placeholder: "Antonio",
-                                    defaultValue: controller.bikeName.value,
-                                    onChange: controller.onChangeBikeName,
-                                  ),
-                                  Divider(
-                                    color: Get.isDarkMode
-                                        ? Color.fromRGBO(255, 255, 255, 1)
-                                        : Color.fromRGBO(0, 0, 0, 1),
-                                    height: 1,
-                                  ),
-                                  TextInput(
-                                    title: "Car/Bike Number*".tr,
+                                    title: "Vehicle Number*".tr,
                                     placeholder: "Antonio",
                                     defaultValue: controller.bikenumber.value,
                                     onChange: controller.onChangeBikeNumber,
@@ -142,18 +153,340 @@ class SignUpPageState extends State<SignUpPage> {
                                         : Color.fromRGBO(0, 0, 0, 1),
                                     height: 1,
                                   ),
-                                  TextInput(
-                                    title: "Model Number".tr,
-                                    placeholder: "Antonio",
-                                    defaultValue: controller.modelnumber.value,
-                                    onChange: controller.onChangeModelNumber,
+                                  //manufacture
+                                  FutureBuilder<List<Data>>(
+                                    future: fetchManufactVehicleTye("/get_oems"),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<List<Data>> snapshot) {
+                                      if (!snapshot.hasData)
+                                        return Container();
+
+                                      return Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.only(
+                                                top: 10.0,
+                                              ),
+                                              child:Text("Manufacture *",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w500,
+                                                  fontFamily: "Inter"))),
+                                          DropdownButtonHideUnderline(
+                                              child:
+                                              Container(
+                                                  margin: EdgeInsets.only(
+                                                    top: 5.0,
+                                                  ),
+
+                                                  child: DropdownButton(
+                                                    hint: Padding(
+                                                        padding: EdgeInsets.all(15.0),
+                                                        child: Text(
+                                                          'Manufacture',
+                                                          style: TextStyle(
+                                                              fontWeight: FontWeight.w400,
+                                                              fontSize: 14.0,
+                                                              color: Colors.black45,
+                                                              fontFamily: 'Inter'),
+                                                        )),
+                                                    isExpanded: true,
+                                                    iconSize: 30.0,
+                                                    style: TextStyle(fontWeight: FontWeight.w400,
+                                                        fontSize: 14.0,
+                                                        color: Colors.black45,
+                                                        fontFamily: 'Inter'),
+                                                    items: snapshot.data!.map((manufacture) =>
+                                                        DropdownMenuItem<Data>(
+                                                          value: manufacture,
+                                                          child: Padding(
+                                                              padding:
+                                                              EdgeInsets.only(
+                                                                  left: 15.0),
+                                                              child: Text(
+                                                                manufacture.name.toString(),
+                                                                style: TextStyle(
+                                                                    color:
+                                                                    Colors.black,
+                                                                    fontSize: 14.0,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontFamily:
+                                                                    'Inter'),
+                                                              )),
+                                                        ))
+                                                        .toList(),
+                                                    value: controller.manufactureSelected == null ? controller.manufactureSelected : snapshot.data!.where((i) =>
+                                                    i.name ==controller.manufactureSelected!.name).first as Data,
+                                                    onChanged: (manufacture) {
+                                                      setState(
+                                                            () {
+                                                              controller.manufactureSelected = manufacture;
+
+                                                        },
+                                                      );
+                                                    },
+                                                  ))),
+                                          Divider(
+                                            color: Get.isDarkMode
+                                                ? Color.fromRGBO(255, 255, 255, 1)
+                                                : Color.fromRGBO(0, 0, 0, 1),
+                                            height: 1,
+                                          ),
+
+                                        ],
+                                      );
+                                    },
                                   ),
-                                  Divider(
-                                    color: Get.isDarkMode
-                                        ? Color.fromRGBO(255, 255, 255, 1)
-                                        : Color.fromRGBO(0, 0, 0, 1),
-                                    height: 1,
+                                  //vehicle type
+                                  FutureBuilder<List<Data>>(
+                                    future:
+                                    fetchManufactVehicleTye("/get_vehicle_types"),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<List<Data>> snapshot) {
+                                      if (!snapshot.hasData) return Container();
+
+                                      return Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.only(
+                                                top: 10.0,
+                                              ),
+                                              child: Text("Vehicle Type *",
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                      fontFamily: "Inter"))),
+                                          DropdownButtonHideUnderline(
+                                              child: Container(
+                                                  margin: EdgeInsets.only(
+                                                    top: 5.0,
+                                                  ),
+                                                  child: DropdownButton(
+                                                    hint: Padding(
+                                                        padding: EdgeInsets.all(
+                                                            15.0),
+                                                        child: Text(
+                                                          'Vehicle Type',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w400,
+                                                              fontSize: 14.0,
+                                                              color: Colors
+                                                                  .black45,
+                                                              fontFamily:
+                                                              'Inter'),
+                                                        )),
+                                                    isExpanded: true,
+                                                    iconSize: 30.0,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.w400,
+                                                        fontSize: 14.0,
+                                                        color: Colors.black45,
+                                                        fontFamily: 'Inter'),
+                                                    items: snapshot.data!
+                                                        .map((vehicleType) =>
+                                                        DropdownMenuItem<
+                                                            Data>(
+                                                          value:
+                                                          vehicleType,
+                                                          child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                  left:
+                                                                  15.0),
+                                                              child: Text(
+                                                                vehicleType
+                                                                    .name
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                    14.0,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontFamily:
+                                                                    'Inter'),
+                                                              )),
+                                                        ))
+                                                        .toList(),
+                                                    value: controller.vehicleTypeSelected ==
+                                                        null
+                                                        ? controller.vehicleTypeSelected
+                                                        : snapshot.data!
+                                                        .where((i) =>
+                                                    i.name ==
+                                                        controller.vehicleTypeSelected!
+                                                            .name)
+                                                        .first as Data,
+                                                    onChanged:
+                                                        (vehicleType) {
+                                                      setState(
+                                                            () {
+                                                              controller.vehicleTypeSelected = vehicleType;
+                                                        },
+                                                      );
+                                                    },
+                                                  ))),
+                                          Divider(
+                                            color: Get.isDarkMode
+                                                ? Color.fromRGBO(
+                                                255, 255, 255, 1)
+                                                : Color.fromRGBO(0, 0, 0, 1),
+                                            height: 1,
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
+
+                                  //model
+                                  FutureBuilder<List<Model>>(
+                                    future: fetchVehicleModel(
+                                        controller.manufactureSelected,
+                                        controller.vehicleTypeSelected),
+                                    builder: (BuildContext context,
+                                        AsyncSnapshot<List<Model>> snapshot) {
+                                      if (!snapshot.hasData) return Container();
+
+                                      return Column(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Container(
+                                              margin: EdgeInsets.only(
+                                                top: 10.0,
+                                              ),
+                                              child: Text("Model*",
+                                                  style: TextStyle(
+                                                      fontSize: 16.0,
+                                                      fontWeight:
+                                                      FontWeight.w500,
+                                                      fontFamily: "Inter"))),
+                                          DropdownButtonHideUnderline(
+                                              child: Container(
+                                                  margin: EdgeInsets.only(
+                                                    top: 5.0,
+                                                  ),
+                                                  child: DropdownButton(
+                                                    hint: Padding(
+                                                        padding: EdgeInsets.all(
+                                                            15.0),
+                                                        child: Text(
+                                                          'Vehicle Model',
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                              FontWeight
+                                                                  .w400,
+                                                              fontSize: 14.0,
+                                                              color: Colors
+                                                                  .black45,
+                                                              fontFamily:
+                                                              'Inter'),
+                                                        )),
+                                                    isExpanded: true,
+                                                    iconSize: 30.0,
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                        FontWeight.w400,
+                                                        fontSize: 14.0,
+                                                        color: Colors.black45,
+                                                        fontFamily: 'Inter'),
+                                                    items: snapshot.data!
+                                                        .map((model) =>
+                                                        DropdownMenuItem<
+                                                            Model>(
+                                                          value: model,
+                                                          child: Padding(
+                                                              padding: EdgeInsets
+                                                                  .only(
+                                                                  left:
+                                                                  15.0),
+                                                              child: Text(
+                                                                model
+                                                                    .modelName
+                                                                    .toString(),
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black,
+                                                                    fontSize:
+                                                                    14.0,
+                                                                    fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                                    fontFamily:
+                                                                    'Inter'),
+                                                              )),
+                                                        ))
+                                                        .toList(),
+                                                    value:controller.vehicleModelSelected ==
+                                                        null
+                                                        ? controller.vehicleModelSelected
+                                                        : snapshot.data!
+                                                        .where((i) =>
+                                                    i.modelName ==
+                                                        controller.vehicleModelSelected!
+                                                            .modelName)
+                                                        .first as Model,
+                                                    onChanged: (model) {
+                                                      setState(
+                                                            () {
+                                                          controller.vehicleModelSelected = model;
+                                                          print(
+                                                              vehicleTypeSelected);
+                                                        },
+                                                      );
+                                                    },
+                                                  ))),
+                                          Divider(
+                                            color: Get.isDarkMode
+                                                ? Color.fromRGBO(
+                                                255, 255, 255, 1)
+                                                : Color.fromRGBO(0, 0, 0, 1),
+                                            height: 1,
+                                          ),
+                                          //           SizedBox(
+                                          //             height: 3.0,
+                                          //           ),
+                                          //           Text(
+                                          //             vehicleModelSelected == null && flagSignUp==true
+                                          //                 ? "Please select Vehicle Model"
+                                          //                 : "",
+                                          //             style: TextStyle(
+                                          //                 fontWeight: FontWeight.w400,
+                                          //                 fontSize: 12.0,
+                                          //                 fontFamily: 'Inter',
+                                          //                 color: Theme
+                                          //                     .of(context)
+                                          //                     .errorColor),
+                                          // //           )
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                  // TextInput(
+                                  //   title: "Model Number".tr,
+                                  //   placeholder: "Antonio",
+                                  //   defaultValue: controller.modelnumber.value,
+                                  //   onChange: controller.onChangeModelNumber,
+                                  // ),
+                                  // Divider(
+                                  //   color: Get.isDarkMode
+                                  //       ? Color.fromRGBO(255, 255, 255, 1)
+                                  //       : Color.fromRGBO(0, 0, 0, 1),
+                                  //   height: 1,
+                                  // ),
                                   TextInput(
                                     title: "Email Id*".tr,
                                     placeholder: "Antonio",
@@ -192,7 +525,7 @@ class SignUpPageState extends State<SignUpPage> {
                                   PasswordInput(
                                     title: "Confrim Password".tr,
                                     onChange:
-                                        controller.onChangePasswordConfirm,
+                                    controller.onChangePasswordConfirm,
                                   ),
                                 ],
                               ),
@@ -203,7 +536,7 @@ class SignUpPageState extends State<SignUpPage> {
                         SignButton(
                           title: "Sign Up".tr,
                           loading: controller.loading.value,
-                          onClick: controller.signUpWithPhone,
+                          onClick:controller.signUpWithPhone,
                         )
                       ],
                     );
