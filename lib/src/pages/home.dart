@@ -2,6 +2,7 @@ import 'package:elektrify/src/controllers/category_controller.dart';
 import 'package:elektrify/src/pages/category_products.dart';
 import 'package:elektrify/src/pages/chargedetails.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '/src/components/home_silver_bar.dart';
@@ -76,7 +77,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 onPressed: () => null),
             // SizedBox(width: 100),
             TextButton(
-                child: Text("Check In", style: TextStyle(fontSize: 14)),
+                child: Text("Book Now", style: TextStyle(fontSize: 14)),
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
                         EdgeInsets.fromLTRB(40, 15, 40, 15)),
@@ -86,15 +87,21 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40.0),
                             side: BorderSide(color: Colors.green)))),
-                onPressed: () =>
-                    Future.delayed(Duration(milliseconds: 100), () {
-                      print(
-                          "widget.qrdatawidget.qrdata+++++++++${widget.qrdata!}");
-                      Get.to(
-                        ChargeingDetails(qrdata: widget.qrdata!),
-                      );
-                      // Do something
-                    })),
+                onPressed: () {
+                    // Future.delayed(Duration(milliseconds: 100), () {
+                    //   print(
+                    //       "widget.qrdatawidget.qrdata+++++++++${widget.qrdata!}");
+                      if(widget.qrdata!=null){
+                        Get.to(
+                          ChargeingDetails(qrdata: widget.qrdata!),
+                        );
+                      }else{
+                        Fluttertoast.showToast(msg: "Please select Port");
+                      }
+
+                    }
+                    // )
+    ),
           ],
         ),
       ),

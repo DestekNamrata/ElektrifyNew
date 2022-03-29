@@ -43,7 +43,7 @@ class CategoryController extends GetxController {
       getCategories(-1, 10, 0);
     }
     //updated on 25/03/2022 by ND
-    getCategoryProducts(3, false);
+    getCategoryProducts(1, false);
   }
 
   @override

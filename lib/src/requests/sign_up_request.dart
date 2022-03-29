@@ -15,7 +15,10 @@ Future<Map<String, dynamic>> signUpRequest(
     String password,
     int authType,
     String socialId,
-    String pushToken) async {
+    String pushToken,
+    String manufactId,
+    String vehicleTypeId,
+    String modelId) async {
   String url = "$GLOBAL_URL/client/signup";
 
   Map<String, String> headers = {
@@ -35,7 +38,11 @@ Future<Map<String, dynamic>> signUpRequest(
     "auth_type": authType.toString(),
     "social_id": socialId,
     "device_type": Platform.isAndroid ? "1" : "2",
-    "push_token": pushToken
+    "push_token": pushToken,
+    "vehicle_number":bikenumber,
+    "oem_id":manufactId,
+    "vehicle_type_id":vehicleTypeId,
+    "vehicle_model_id":modelId
   };
 
   final client = new http.Client();

@@ -9,6 +9,7 @@ import '/src/controllers/sign_up_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyPhonePage extends GetView<SignUpController> {
+
   final TextEditingController textEditingController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 

@@ -3,6 +3,7 @@ import 'package:elektrify/src/pages/chargedetails.dart';
 import 'package:elektrify/src/pages/home.dart';
 import 'package:elektrify/src/pages/pamentmethod.dart';
 import 'package:elektrify/src/pages/paymentdone.dart';
+import 'package:elektrify/src/pages/sign_up_updated.dart';
 import 'package:elektrify/src/pages/timer.dart';
 import 'package:elektrify/src/pages/verifyphoneforforgetpwd.dart';
 import 'package:get/get.dart';
@@ -56,6 +57,7 @@ class AppRoutes {
     GetPage(
         name: '/signup',
         page: () => SignUpPage(),
+        // page: () => SignUpUpdated(),
         transition: Transition.fade,
         transitionDuration: const Duration(milliseconds: 500)),
     GetPage(
