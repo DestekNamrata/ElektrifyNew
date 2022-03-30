@@ -399,29 +399,29 @@ class HomeSilverBar extends StatelessWidget {
                 ),
               if (height > 20)
                 Container(
-                  margin: const EdgeInsets.only(top: 5),
+                  margin: const EdgeInsets.only(top: 0),
                   width: 1.sw,
                   height: 150.h,
                   child: Stack(
                     children: <Widget>[
-                      Positioned(
-                          bottom: 0,
-                          left: 0,
-                          child: Container(
-                              width: 1.sw,
-                              height: 25,
-                              color: Get.isDarkMode
-                                  ? Colors.white
-                                  //  const Color.fromRGBO(19, 20, 21, 1)
-                                  : Colors.white
-                              // const Color.fromRGBO(243, 243, 240, 1),
-                              )),
+                      // Positioned(
+                      //     bottom: 0,
+                      //     left: 0,
+                      //     child: Container(
+                      //         width: 1.sw,
+                      //         height: 25,
+                      //         color: Get.isDarkMode
+                      //             ? Colors.white
+                      //             //  const Color.fromRGBO(19, 20, 21, 1)
+                      //             : Colors.white
+                      //         // const Color.fromRGBO(243, 243, 240, 1),
+                      //         )),
                       Container(
                           height: 160.h,
                           width: 1.sw - 10,
                           margin: const EdgeInsets.symmetric(horizontal: 10),
                           padding: const EdgeInsets.all(0),
-                          alignment: Alignment.topCenter,
+                          alignment: Alignment.topLeft,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               color: Get.isDarkMode
