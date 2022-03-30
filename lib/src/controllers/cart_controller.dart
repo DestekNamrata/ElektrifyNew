@@ -27,12 +27,20 @@ class CartController extends GetxController {
   var cvc = "".obs;
   var productId = "".obs;
   var orderSent = false.obs;
-  var paymentType = 2.obs;
+  var paymentType = 1.obs;
   var paymentStatus = 1.obs; //for payment
   var orderComment = "".obs;
   var cards = <Card>[].obs;
   var activeCardNumber = "".obs;
   var isCardAvailable = false.obs;
+  var amount = 0.obs;
+  var discount = 0.obs;
+  var tax = 0.obs;
+  var total = 0.obs;
+  var duration = 0.obs;
+
+  var port = "Port 2".obs;
+  var type = "AC 3.3 Pin".obs;
 
   @override
   void onInit() {
