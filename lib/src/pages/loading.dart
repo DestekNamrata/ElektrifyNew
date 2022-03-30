@@ -21,7 +21,7 @@ class Loading extends GetView<AuthController> {
                 Center(
                   child:
                   Image.asset(
-                    'lib/assets/images/samkuEvlogo.png',
+                    'lib/assets/images/light_mode/splash_icon.png',
                     // fit: BoxFit.contain,
                     // width: double.infinity,
                     // height: 1.sh,

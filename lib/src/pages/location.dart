@@ -222,7 +222,7 @@ class LocationPage extends GetView<AddressController> {
                                             // Do something
                                           });
                                     }else{
-                                      Get.back();
+                                      Get.toNamed("/location");
                                     }
 
                                   },

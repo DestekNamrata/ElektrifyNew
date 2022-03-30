@@ -11,9 +11,8 @@ import '/src/models/product.dart';
 class CategoryProductItem extends GetView<ProductController> {
   final Product? product;
   final Function()? onClick;
-  bool isSelected;
 
-  CategoryProductItem({this.product,this.onClick,required this.isSelected});
+  CategoryProductItem({this.product,this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +32,7 @@ class CategoryProductItem extends GetView<ProductController> {
         ListTile(
           selectedColor: Colors.green,
           selectedTileColor: Colors.green,
-          selected: isSelected,
+          selected: false,
           onTap: () {
             controller.activeProduct.value.id;
 

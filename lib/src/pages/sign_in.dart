@@ -30,7 +30,7 @@ class SignInPage extends GetView<SignInController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Image.asset("lib/assets/images/samkuEV.png"),
+                    Image.asset("lib/assets/images/light_mode/splash_icon.png"),
                     InkWell(
                       onTap: () {
                         Get.toNamed("/signup");
@@ -55,9 +55,12 @@ class SignInPage extends GetView<SignInController> {
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(top: 0.05.sh),
                 child: Image(
-                  image: AssetImage(Get.isDarkMode
-                      ? "lib/assets/imagesSymbol.png"
-                      : "lib/assets/images/Symbol.png"),
+                  // image: AssetImage(Get.isDarkMode
+                  //     ? "lib/assets/imagesSymbol.png"
+                  //     : "lib/assets/images/Symbol.png"),
+                  image:AssetImage(Get.isDarkMode
+                  ?"lib/assets/images/light_mode/splash_icon.png"
+                  :"lib/assets/images/light_mode/splash_icon.png"),
                   height: 120,
                   width: 120,
                   fit: BoxFit.contain,
