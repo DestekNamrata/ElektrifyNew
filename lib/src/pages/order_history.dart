@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '/src/components/appbar.dart';
+
 import '/src/components/empty.dart';
 import '/src/components/order_history_dialog.dart';
 import '/src/components/order_history_info.dart';
@@ -65,7 +65,6 @@ class OrderHistoryState extends State<OrderHistory>
           ? Color.fromRGBO(19, 20, 21, 1)
           : Color.fromRGBO(243, 243, 240, 1),
       appBar: AppBar(
-        
         title: Text(
           "My orders".tr,
           style: TextStyle(color: Colors.black),
@@ -77,8 +76,8 @@ class OrderHistoryState extends State<OrderHistory>
         // actions: OrderHistoryInfo(),
       ),
       body: SizedBox(
-        height: 1.sh,
-        child: Expanded(
+        height: 1.sh - appBarHeight,
+        child: Container(
           child: Column(
             children: <Widget>[
               Container(
