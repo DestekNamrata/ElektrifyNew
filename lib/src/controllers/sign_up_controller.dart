@@ -94,63 +94,64 @@ class SignUpController extends GetxController {
     ));
     loading.value = false;
     } else if (surname.value.isEmpty) {
-    Get.bottomSheet(ErrorAlert(
-    message: "Enter your surname".tr,
-    onClose: () {
-    Get.back();
-    },
-    ));
-    loading.value = false;
+      Get.bottomSheet(ErrorAlert(
+        message: "Enter your surname".tr,
+        onClose: () {
+          Get.back();
+        },
+      ));
+      loading.value = false;
 
 
-    // } else if (bikeName.value.length < 4) {
-    //   Get.bottomSheet(ErrorAlert(
-    //     message: "Bike Name length should be at least 4 characters".tr,
-    //     onClose: () {
-    //       Get.back();
-    //     },
-    //   ));
-    //   loading.value = false;
-    } else if (bikenumber.value.length < 4) {
-    Get.bottomSheet(ErrorAlert(
-    message: "Vehicle Number length should be at least 4 characters".tr,
-    onClose: () {
-    Get.back();
-    },
-    ));
-    loading.value = false;
-    // } else if (modelnumber.value.length < 4) {
-    //   Get.bottomSheet(ErrorAlert(
-    //     message: "Model Number length should be at least 4 characters".tr,
-    //     onClose: () {
-    //       Get.back();
-    //     },
-    //   ));
-    //   loading.value = false;
-    } else if (manufactureSelected==null) {
-    Get.bottomSheet(ErrorAlert(
-    message: "Please select Manufacture".tr,
-    onClose: () {
-    Get.back();
-    },
-    ));
-    loading.value = false;
-    } else if (vehicleTypeSelected==null) {
-    Get.bottomSheet(ErrorAlert(
-    message: "Please select Vehicle Type".tr,
-    onClose: () {
-    Get.back();
-    },
-    ));
-    loading.value = false;
-    }else if (vehicleModelSelected==null) {
-    Get.bottomSheet(ErrorAlert(
-    message: "Please select Vehicle Model".tr,
-    onClose: () {
-    Get.back();
-    },
-    ));
-    loading.value = false;
+      // // } else if (bikeName.value.length < 4) {
+      // //   Get.bottomSheet(ErrorAlert(
+      // //     message: "Bike Name length should be at least 4 characters".tr,
+      // //     onClose: () {
+      // //       Get.back();
+      // //     },
+      // //   ));
+      // //   loading.value = false;
+      // } else if (bikenumber.value.length < 4) {
+      // Get.bottomSheet(ErrorAlert(
+      // message: "Vehicle Number length should be at least 4 characters".tr,
+      // onClose: () {
+      // Get.back();
+      // },
+      // ));
+      // loading.value = false;
+      // // } else if (modelnumber.value.length < 4) {
+      // //   Get.bottomSheet(ErrorAlert(
+      // //     message: "Model Number length should be at least 4 characters".tr,
+      // //     onClose: () {
+      // //       Get.back();
+      // //     },
+      // //   ));
+      // //   loading.value = false;
+      // } else if (manufactureSelected==null) {
+      // Get.bottomSheet(ErrorAlert(
+      // message: "Please select Manufacture".tr,
+      // onClose: () {
+      // Get.back();
+      // },
+      // ));
+      // loading.value = false;
+      // } else if (vehicleTypeSelected==null) {
+      // Get.bottomSheet(ErrorAlert(
+      // message: "Please select Vehicle Type".tr,
+      // onClose: () {
+      // Get.back();
+      // },
+      // ));
+      // loading.value = false;
+      // }else if (vehicleModelSelected==null) {
+      // Get.bottomSheet(ErrorAlert(
+      // message: "Please select Vehicle Model".tr,
+      // onClose: () {
+      // Get.back();
+      // },
+      // ));
+      // loading.value = false;
+      // } else
     } else if (phone.value.length < 9) {
     Get.bottomSheet(ErrorAlert(
     message: "Phone length should be at least 10 characters".tr,
@@ -225,8 +226,11 @@ class SignUpController extends GetxController {
             1,
             "",
             authController.token.value,
-        manufactureSelected.id.toString(),
-        vehicleTypeSelected.id.toString(),vehicleModelSelected.id.toString());
+
+        manufactureSelected!=null?manufactureSelected.id.toString():"",
+          vehicleTypeSelected!=null?vehicleTypeSelected.id.toString():"",
+            vehicleTypeSelected!=null?vehicleModelSelected.id.toString():""
+        );
         print("data:"+data.toString());
         // Map<String, dynamic> data = await signUpRequest(
         //     name,

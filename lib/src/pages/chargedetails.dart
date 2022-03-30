@@ -516,7 +516,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
                             amount: amount));
                       } else {
                         Fluttertoast.showToast(
-                            msg: "Not available,please enter another amount");
+                            msg: "Port is already booked,choose another");
                       }
                       // await cartController
                       //     .orderAvailabilityApi(startTime,endTime,date,productId)
