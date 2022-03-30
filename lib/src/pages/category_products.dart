@@ -257,11 +257,8 @@ class CategoryProducts extends GetView<CategoryController> {
                                 print(product.toString());
                                 return Expanded(
                                   child: CategoryProductItem(
-                                    isSelected: listIndexClicked==index?true:false,
                                     product: products[index],
-                                    onClick: (){
-                                      isSelected=true;
-                                  }
+
                                   ),
                                 );
                               })

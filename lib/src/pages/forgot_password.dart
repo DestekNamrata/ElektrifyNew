@@ -44,7 +44,7 @@ class ForgotPasswordPage extends GetView<SignUpController> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Image.asset("lib/assets/images/samkuEV.png"),
+                    Image.asset("lib/assets/images/light_mode/splash_icon.png"),
                     // Text(
                     //   "$APP_NAME",
                     //   style: TextStyle(

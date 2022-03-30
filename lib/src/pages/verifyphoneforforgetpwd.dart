@@ -45,7 +45,7 @@ class VerifyPhoneforgetpwdPage extends GetView<SignUpController> {
               height: 22,
               margin: EdgeInsets.only(top: 0.075.sh, right: 16, left: 30),
               alignment: Alignment.centerLeft,
-              child: Image.asset("lib/assets/images/samkuEV.png"),
+              child: Image.asset("lib/assets/images/light_mode/splash_icon.png"),
               //  Text(
               //   "$APP_NAME",
               //   style: TextStyle(

@@ -48,7 +48,7 @@ class SignUpPageState extends State<SignUpPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Image.asset("lib/assets/images/dark_mode/samkuEV.png"),
+                    Image.asset("lib/assets/images/light_mode/splash_icon.png"),
                     InkWell(
                       onTap: () {
                         Get.toNamed("/signin");

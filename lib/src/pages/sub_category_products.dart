@@ -109,7 +109,6 @@ class SubCategoryProducts extends GetView<CategoryController> {
                             for (int i = 0; i < products.length; i++) {
                               subRow.add(CategoryProductItem(
                                 product: products[i],
-                                isSelected: false,
                               ));
 
                               if ((i + 1) % 2 == 0 ||

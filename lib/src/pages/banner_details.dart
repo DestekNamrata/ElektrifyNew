@@ -114,7 +114,6 @@ class BannerDetails extends GetView<BannerController> {
 
                                 for (int i = 0; i < products.length; i++) {
                                   subRow.add(CategoryProductItem(
-                                    isSelected: false,
                                     product: products[i],
                                   ));
 
