@@ -255,7 +255,7 @@ class CategoryProducts extends GetView<CategoryController> {
                               itemBuilder: (context, index) {
                                 Product product = products[index];
                                 print(product.toString());
-                                return Expanded(
+                                return Flexible(
                                   child: CategoryProductItem(
                                     product: products[index],
 

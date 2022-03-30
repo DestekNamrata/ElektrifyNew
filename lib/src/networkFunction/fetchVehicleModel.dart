@@ -14,10 +14,10 @@ Future<List<Model>> fetchVehicleModel(
 
   if (await Utils.checkInternetConnectivity()) {
     Map<String, dynamic> data = await vehicleModelRequest(
-        manufactureSelected != null ? manufactureSelected.id.toString() : "2",
+        manufactureSelected != null ? manufactureSelected.id.toString() : "",
         vehicleTypeSelected != null
             ? vehicleTypeSelected.id.toString()
-            : "2");
+            : "");
     if (data['success']) {
       if (data['data'].length > 0) {
         for (int i = 0; i < data['data'].length; i++) {
