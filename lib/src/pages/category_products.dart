@@ -12,6 +12,8 @@ import '/src/models/category.dart';
 import '/src/models/product.dart';
 
 class CategoryProducts extends GetView<CategoryController> {
+  int? qrData;
+  CategoryProducts({Key? key,this.qrData}):super(key: key);
   final CategoryController categoryController = Get.put(CategoryController());
   // int id = 3;
   int id = 3;
@@ -255,10 +257,10 @@ class CategoryProducts extends GetView<CategoryController> {
                               itemBuilder: (context, index) {
                                 Product product = products[index];
                                 print(product.toString());
-                                return Flexible(
+                                return Container(
                                   child: CategoryProductItem(
                                     product: products[index],
-
+                                    qrData:qrData,
                                   ),
                                 );
                               })

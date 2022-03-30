@@ -142,7 +142,7 @@ class SignUpPageState extends State<SignUpPage> {
                                   //   height: 1,
                                   // ),
                                   TextInput(
-                                    title: "Vehicle Number*".tr,
+                                    title: "Vehicle Number".tr,
                                     placeholder: "Antonio",
                                     defaultValue: controller.bikenumber.value,
                                     onChange: controller.onChangeBikeNumber,
@@ -169,7 +169,7 @@ class SignUpPageState extends State<SignUpPage> {
                                               margin: EdgeInsets.only(
                                                 top: 10.0,
                                               ),
-                                              child:Text("Manufacture *",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w500,
+                                              child:Text("Manufacture",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w500,
                                                   fontFamily: "Inter"))),
                                           DropdownButtonHideUnderline(
                                               child:
@@ -257,7 +257,7 @@ class SignUpPageState extends State<SignUpPage> {
                                               margin: EdgeInsets.only(
                                                 top: 10.0,
                                               ),
-                                              child: Text("Vehicle Type *",
+                                              child: Text("Vehicle Type",
                                                   style: TextStyle(
                                                       fontSize: 16.0,
                                                       fontWeight:
@@ -336,9 +336,7 @@ class SignUpPageState extends State<SignUpPage> {
                                                               controller.vehicleTypeSelected = vehicleType;
                                                               controller.vehicleModelSelected=null;
                                                               fetchVehicleModel(controller.manufactureSelected, controller.vehicleTypeSelected);
-
-
-                                                            },
+                                                              },
                                                       );
                                                     },
                                                   ))),
@@ -373,7 +371,7 @@ class SignUpPageState extends State<SignUpPage> {
                                               margin: EdgeInsets.only(
                                                 top: 10.0,
                                               ),
-                                              child: Text("Model*",
+                                              child: Text("Model",
                                                   style: TextStyle(
                                                       fontSize: 16.0,
                                                       fontWeight:
@@ -493,7 +491,7 @@ class SignUpPageState extends State<SignUpPage> {
                                   //   height: 1,
                                   // ),
                                   TextInput(
-                                    title: "Email Id*".tr,
+                                    title: "Email Id".tr,
                                     placeholder: "Antonio",
                                     defaultValue: controller.email.value,
                                     onChange: controller.onChangeEmail,
@@ -505,7 +503,7 @@ class SignUpPageState extends State<SignUpPage> {
                                     height: 1,
                                   ),
                                   TextInput(
-                                      title: "Phone number".tr,
+                                      title: "Phone number *".tr,
                                       prefix: "+91",
                                       defaultValue: controller.phone.value,
                                       type: TextInputType.number,
@@ -518,7 +516,7 @@ class SignUpPageState extends State<SignUpPage> {
                                     height: 1,
                                   ),
                                   PasswordInput(
-                                    title: "Password".tr,
+                                    title: "Password *".tr,
                                     onChange: controller.onChangePassword,
                                   ),
                                   Divider(

@@ -11,8 +11,9 @@ import '/src/models/product.dart';
 class CategoryProductItem extends GetView<ProductController> {
   final Product? product;
   final Function()? onClick;
+  int? qrData;
 
-  CategoryProductItem({this.product,this.onClick});
+  CategoryProductItem({this.product,this.onClick,this.qrData});
 
   @override
   Widget build(BuildContext context) {
@@ -36,9 +37,11 @@ class CategoryProductItem extends GetView<ProductController> {
           onTap: () {
             controller.activeProduct.value.id;
 
-            Get.to(Home(qrdata: product!.id), arguments: [
-              {},
-            ]);
+            // Get.to(Home(qrdata: product!.id), arguments: [
+            //   {},
+            // ]);
+            qrData=product!.id;
+            Get.to(Home(qrdata:qrData));
           },
           dense: true,
           isThreeLine: true,

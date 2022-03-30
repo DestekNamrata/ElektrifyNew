@@ -50,7 +50,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 //  HomeTabs(),
                 // Categories(),
                 //  SubCategoryProducts(),
-                CategoryProducts(),
+                CategoryProducts(qrData:widget.qrdata),
                 //  HomeBrands(),
                 //  HomeCategory(),
               ],

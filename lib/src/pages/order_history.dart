@@ -78,7 +78,7 @@ class OrderHistoryState extends State<OrderHistory>
       ),
       body: SizedBox(
         height: 1.sh,
-        child: Expanded(
+        child: Container(
           child: Column(
             children: <Widget>[
               Container(
