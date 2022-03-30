@@ -110,6 +110,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
     print(totalMin);
     // return '$hourValue:$minuteString';
     cartController.duration.value = totalMin;
+    print("duration ${cartController.duration.value}");
     return totalMin;
   }
 
@@ -317,6 +318,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
                                       setState(() {
                                         amount = int.parse(
                                             controllerAmount.text.toString());
+                                        cartController.amount.value = amount!;
                                       });
 
                                       print(controllerAmount.text.toString());
@@ -500,6 +502,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
                       cartController.discount.value = discountprice!;
                       cartController.port.value = "$name";
                       cartController.type.value = "$chargingtype";
+                      cartController.total.value = 200;
                       //updated by ND
                       String result = await cartController.orderAvailabilityApi(
                           startTime, endTime, date, productId);
@@ -508,6 +511,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
                             startTime: startTime,
                             endTime: endTime,
                             date: date,
+                            duration: cartController.duration.value,
                             productId: productId,
                             amount: amount));
                       } else {

@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:elektrify/src/components/card_item.dart';
 import 'package:elektrify/src/components/checkout_head.dart';
 import 'package:elektrify/src/controllers/auth_controller.dart';
 import 'package:elektrify/src/controllers/cart_controller.dart';
+import 'package:elektrify/src/pages/timer.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,7 +16,7 @@ import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentMethod extends StatefulWidget {
-  var startTime, endTime, date, productId, amount;
+  var startTime, endTime, date, productId, amount, duration;
 
   PaymentMethod(
       {Key? key,
@@ -21,7 +24,8 @@ class PaymentMethod extends StatefulWidget {
       @required this.endTime,
       @required this.date,
       @required this.productId,
-      @required this.amount})
+      @required this.amount,
+      @required this.duration})
       : super(key: key);
 
   @override
@@ -86,7 +90,7 @@ class _PaymentMethodState extends State<PaymentMethod> {
       'key': razorPayKey,
       'amount': amt,
       // 'amount':100,
-      'name': 'Samku',
+      'name': 'Elektrify',
       // 'order_ID':widget.productId,
       // 'description': widget.cartDet[0].producerName,
       'prefill': {
@@ -142,7 +146,15 @@ class _PaymentMethodState extends State<PaymentMethod> {
                 "OK",
               ),
               onPressed: () {
-                Get.offAndToNamed("/TimerScreen");
+                //Get.offAndToNamed("/TimerScreen");
+                Get.to(TimerScreen(
+                  amount: widget.amount.toString(),
+                  duration: widget.duration.toString(),
+                  paymentType: cartController.paymentType.value.toString(),
+                  date: widget.date,
+                  name: cartController.type.toString(),
+                  port: cartController.port.toString(),
+                ));
               },
             ),
           ],
@@ -380,16 +392,43 @@ class _PaymentMethodState extends State<PaymentMethod> {
                   if (cartController.paymentType.value == 2) {
                     openCheckout();
                   } else {
-                    await cartController
-                        .orderSave(
-                            widget.startTime,
-                            widget.endTime,
-                            widget.date,
-                            widget.productId.toString(),
-                            widget.amount.toString())
-                        .whenComplete(() => Get.toNamed("/location")
-                            // Get.toNamed("/PaymentDone",arguments: user!.phoneNumber.toString())
-                            );
+                    Fluttertoast.showToast(
+                        msg: "Booked successfully",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.green,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                    Future.delayed(Duration(milliseconds: 200), () {
+                      //Get.offAndToNamed("/location");
+                      cartController
+                          .orderSave(
+                              widget.startTime,
+                              widget.endTime,
+                              widget.date,
+                              widget.productId.toString(),
+                              widget.amount.toString())
+                          .whenComplete(() => Get.to(TimerScreen(
+                                amount: widget.amount.toString(),
+                                duration: widget.duration.toString(),
+                                paymentType:
+                                    cartController.paymentType.value.toString(),
+                                date: widget.date,
+                                name: cartController.type.toString(),
+                                port: cartController.port.toString(),
+                              )));
+                    });
+                    // await cartController
+                    //     .orderSave(
+                    //         widget.startTime,
+                    //         widget.endTime,
+                    //         widget.date,
+                    //         widget.productId.toString(),
+                    //         widget.amount.toString())
+                    //     .whenComplete(() => Get.toNamed("/location")
+                    // Get.toNamed("/PaymentDone",arguments: user!.phoneNumber.toString())
+                    //);
                   }
 
                   // Get.toNamed("/PaymentDone");

@@ -74,7 +74,14 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(40),
                             side: BorderSide(color: Colors.green)))),
-                onPressed: () => null),
+                onPressed: () => Fluttertoast.showToast(
+                    msg: "Coming soon",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                    fontSize: 16.0)),
             // SizedBox(width: 100),
             TextButton(
                 child: Text("Book Now", style: TextStyle(fontSize: 14)),
@@ -88,20 +95,19 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                             borderRadius: BorderRadius.circular(40.0),
                             side: BorderSide(color: Colors.green)))),
                 onPressed: () {
-                    // Future.delayed(Duration(milliseconds: 100), () {
-                    //   print(
-                    //       "widget.qrdatawidget.qrdata+++++++++${widget.qrdata!}");
-                      if(widget.qrdata!=null){
-                        Get.to(
-                          ChargeingDetails(qrdata: widget.qrdata!),
-                        );
-                      }else{
-                        Fluttertoast.showToast(msg: "Please select Port");
-                      }
-
-                    }
-                    // )
-    ),
+                  // Future.delayed(Duration(milliseconds: 100), () {
+                  //   print(
+                  //       "widget.qrdatawidget.qrdata+++++++++${widget.qrdata!}");
+                  if (widget.qrdata != null) {
+                    Get.to(
+                      ChargeingDetails(qrdata: widget.qrdata!),
+                    );
+                  } else {
+                    Fluttertoast.showToast(msg: "Please select Port");
+                  }
+                }
+                // )
+                ),
           ],
         ),
       ),

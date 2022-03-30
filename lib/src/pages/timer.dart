@@ -1,27 +1,42 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:elektrify/src/models/product.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
 import '../controllers/auth_controller.dart';
 import '../controllers/cart_controller.dart';
 
 class TimerScreen extends StatefulWidget {
-  final Product? product;
-  final bool? iSimilar;
+  // final Product? product;
+  // final bool? iSimilar;
 
-  TimerScreen({this.product, this.iSimilar = false});
+  String? amount, date, duration, paymentType, name, port;
+  TimerScreen(
+      {Key? key,
+      this.amount,
+      this.date,
+      this.duration,
+      this.paymentType,
+      this.name,
+      this.port})
+      : super(key: key);
+
+  //TimerScreen({this.product, this.iSimilar = false});
 
   int now = DateTime.now().toUtc().millisecondsSinceEpoch;
   bool timerStarted = true;
 
-  // bool height = (product!.isCountDown == 1 && timerStarted);
-  // String currencySymbol =
-  //     controller.currencyController.getActiveCurrencySymbol();
+  String paymentId = "";
+  bool _value = false;
+  int val = -1;
+  final AuthController authController = Get.put(AuthController());
+  final CountDownController _controller = CountDownController();
 
-  // String unit = product!.unit ?? "";
+  // var user = Rxn<User>();
+  User? user;
 
   @override
   _TimerState createState() => _TimerState();
@@ -37,11 +52,14 @@ class _TimerState extends State<TimerScreen> {
 
   // var user = Rxn<User>();
   User? user;
+  var totalDuration;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    totalDuration = int.parse(widget.duration!) * 60;
+    print("total duration $totalDuration");
   }
 
   @override
@@ -68,7 +86,7 @@ class _TimerState extends State<TimerScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('EV port Phonix mall',
+                    const Text('EV Charging Station Port',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 18,
@@ -86,12 +104,12 @@ class _TimerState extends State<TimerScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         // ignore: prefer_const_literals_to_create_immutables
                         children: [
-                          const Text("Charger-1, Port-1",
+                          Text(widget.name.toString(),
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600)),
-                          const Text("AC-3 pin-1",
+                          Text(widget.port.toString(),
                               style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 16,
@@ -107,7 +125,8 @@ class _TimerState extends State<TimerScreen> {
           Container(
               child: CircularCountDownTimer(
             // Countdown duration in Seconds.
-            duration: cartController.duration.value,
+
+            duration: totalDuration!,
 
             // Countdown initial elapsed Duration in Seconds.
             initialDuration: 0,
@@ -153,7 +172,7 @@ class _TimerState extends State<TimerScreen> {
             ),
 
             // Format for the Countdown Text.
-            textFormat: CountdownTextFormat.S,
+            textFormat: CountdownTextFormat.HH_MM_SS,
 
             // Handles Countdown Timer (true for Reverse Countdown (max to 0), false for Forward Countdown (0 to max)).
             isReverse: true,
@@ -177,6 +196,17 @@ class _TimerState extends State<TimerScreen> {
             onComplete: () {
               // Here, do whatever you want
               debugPrint('Countdown Ended');
+              Fluttertoast.showToast(
+                  msg: "Charging completed",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.BOTTOM,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.green,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+              Future.delayed(Duration(milliseconds: 200), () {
+                Get.offAndToNamed("/location");
+              });
             },
           )),
           Card(
@@ -189,13 +219,53 @@ class _TimerState extends State<TimerScreen> {
 
                     // ignore: prefer_const_literals_to_create_immutables
                     children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          const Text("Order ID :",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400)),
+                          Text("Od1234",
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500))
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          const Text("Date:",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400)),
+                          Text("${widget.date}",
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500))
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 0.01.sh,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
                       const Text("Charge Type :",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
                               fontWeight: FontWeight.w400)),
                       Text(
-                          (cartController.paymentType.value == 2)
+                          (int.parse(widget.paymentType!) == 1)
                               ? "Cash"
                               : "RazorPay",
                           style: TextStyle(
@@ -220,7 +290,8 @@ class _TimerState extends State<TimerScreen> {
                           // _radioValue1 == 1
                           // ? "\u20b9 ${amount!}.00"
                           //     : "\u20b9 ${time!}",
-                          /*cartController.calculateAmount(),*/ "${cartController.amount}",
+                          // cartController.calculateAmount(),
+                          "${widget.amount!}",
                           style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -240,7 +311,8 @@ class _TimerState extends State<TimerScreen> {
                               fontSize: 16,
                               fontWeight: FontWeight.w400)),
                       Text(
-                          /*"\u20b9 -$discountprice .00"*/ "${cartController.proccessPercentage}",
+                          /* "\u20b9 -$discountprice.00"*/
+                          "${cartController.proccessPercentage.value}",
                           style: const TextStyle(
                               color: Colors.red,
                               fontSize: 16,
@@ -259,7 +331,7 @@ class _TimerState extends State<TimerScreen> {
                               color: Colors.black,
                               fontSize: 16,
                               fontWeight: FontWeight.w400)),
-                      Text("${cartController.tax}",
+                      Text("${cartController.tax.value}",
                           style: TextStyle(
                               color: Colors.black,
                               fontSize: 16,
@@ -280,10 +352,10 @@ class _TimerState extends State<TimerScreen> {
                               fontSize: 16,
                               fontWeight: FontWeight.w500)),
                       Text(
-                          /* _radioValue1 == 1
-  ? "\u20b9 ${total = discountprice! + amount!}.00"
-      : "\u20b9 ${total = discountprice! + time!}.00"*/
-                          "${cartController.total}",
+                          //                           _radioValue1 == 1
+                          // ? "\u20b9 ${total = discountprice! + amount!}.00"
+                          //     : "\u20b9 ${total = discountprice! + time!}.00"
+                          "${widget.amount}",
                           style: const TextStyle(
                               color: Colors.black,
                               fontSize: 16,

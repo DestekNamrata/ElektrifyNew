@@ -875,6 +875,24 @@ class Checkout extends GetView<CartController> {
                           onTap: () {
                             if (controller.isCardAvailable.value)
                               controller.proccess.value = 2;
+
+                            if (controller.shopController.deliveryDateString
+                                    .value.length >
+                                0) {
+                              controller.discount.value = 50;
+                              //controller.calculateDiscount() as int;
+                              //controller.amount.value = 200;
+                              //controller.calculateAmount() as int;
+                              controller.tax.value = 10;
+                              //controller.proccessPercentage as int;
+                              controller.total.value = 150;
+                              // (controller.calculateAmount() -
+                              //     controller.calculateDiscount() +
+                              //     (controller.deliveryType.value == 1
+                              //         ? controller.shop!.deliveryFee!
+                              //         : 0))
+                              //     .toStringAsFixed(2) as int;
+                            }
                           },
                         ),
                       if (controller.proccess.value == 2)
@@ -927,7 +945,13 @@ class Checkout extends GetView<CartController> {
                               // controller.tax.value =
                               //     controller.proccessPercentage as int;
                               // controller.total.value =
-                              //     controller.calculateDiscount as int;
+                              //     (controller.calculateAmount() -
+                              //             controller.calculateDiscount() +
+                              //             (controller.deliveryType.value == 1
+                              //                 ? controller.shop!.deliveryFee!
+                              //                 : 0))
+                              //         .toStringAsFixed(2) as int;
+
                               controller.orderSave("", "", "", "", "");
                               // controller.total.value =
                               //     controller.calculateAmount() -
