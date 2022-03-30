@@ -143,7 +143,7 @@ class SignUpController extends GetxController {
     },
     ));
     loading.value = false;
-    }else if ((manufactureSelected!=null && vehicleTypeSelected!=null) && vehicleModelSelected==null) {
+    }else if (vehicleModelSelected==null) {
     Get.bottomSheet(ErrorAlert(
     message: "Please select Vehicle Model".tr,
     onClose: () {

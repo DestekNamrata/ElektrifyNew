@@ -222,6 +222,7 @@ class SignUpPageState extends State<SignUpPage> {
                                                       setState(
                                                             () {
                                                               controller.manufactureSelected = manufacture;
+                                                              controller.vehicleModelSelected=null;
 
                                                         },
                                                       );
@@ -333,7 +334,11 @@ class SignUpPageState extends State<SignUpPage> {
                                                       setState(
                                                             () {
                                                               controller.vehicleTypeSelected = vehicleType;
-                                                        },
+                                                              controller.vehicleModelSelected=null;
+                                                              fetchVehicleModel(controller.manufactureSelected, controller.vehicleTypeSelected);
+
+
+                                                            },
                                                       );
                                                     },
                                                   ))),
@@ -444,7 +449,7 @@ class SignUpPageState extends State<SignUpPage> {
                                                             () {
                                                           controller.vehicleModelSelected = model;
                                                           print(
-                                                              vehicleTypeSelected);
+                                                              controller.vehicleTypeSelected);
                                                         },
                                                       );
                                                     },
