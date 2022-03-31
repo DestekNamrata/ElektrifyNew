@@ -1,5 +1,7 @@
 // ignore_for_file: use_key_in_widget_constructors
 
+import 'package:elektrify/src/controllers/category_controller.dart';
+import 'package:elektrify/src/pages/chargedetails.dart';
 import 'package:elektrify/src/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,13 +14,15 @@ class CategoryProductItem extends GetView<ProductController> {
   final Product? product;
   final Function()? onClick;
   int? qrData;
+  bool? isSelected;
 
-  CategoryProductItem({this.product,this.onClick,this.qrData});
+  CategoryProductItem({this.product,this.onClick,this.qrData,this.isSelected});
 
   @override
   Widget build(BuildContext context) {
     int now = DateTime.now().toUtc().millisecondsSinceEpoch;
     bool timerStarted = product!.startTime! <= now && product!.endTime! >= now;
+    CategoryController categoryController=Get.put(CategoryController());
     return
       Card(
         // color: isSelected?Colors.green:Colors.white,
@@ -36,12 +40,19 @@ class CategoryProductItem extends GetView<ProductController> {
           selected: false,
           onTap: () {
             controller.activeProduct.value.id;
+            categoryController.qrData=product!.id;
+
+            if (categoryController.qrData != null) {
+              Get.to(
+                ChargeingDetails(qrdata: categoryController.qrData!),
+              );
+            }
 
             // Get.to(Home(qrdata: product!.id), arguments: [
             //   {},
             // ]);
-            qrData=product!.id;
-            Get.to(Home(qrdata:qrData));
+            // Get.to(Home(qrdata:categoryController.qrData));
+            // qrData=null;
           },
           dense: true,
           isThreeLine: true,

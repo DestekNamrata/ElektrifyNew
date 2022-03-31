@@ -13,7 +13,9 @@ Future<Map<String, dynamic>> categoryProductsRequest(
     int sortType,
     double maxPrice,
     double minPrice,
-    List<int> brandIds) async {
+    String shopId,
+    List<int> brandIds,
+    ) async {
   String url = "$GLOBAL_URL/category/products";
 
   Map<String, String> headers = {
@@ -33,7 +35,8 @@ Future<Map<String, dynamic>> categoryProductsRequest(
     "sort_type": sortType.toString(),
     "max_price": maxPrice.toString(),
     "min_price": minPrice.toString(),
-    "brands": brandIds.join(",")
+    "brands": brandIds.join(","),
+    "id_shop":shopId.toString(),//updated by ND
   };
 
   final response = await client.post(Uri.parse(url),

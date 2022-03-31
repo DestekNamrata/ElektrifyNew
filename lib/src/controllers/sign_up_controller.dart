@@ -191,6 +191,15 @@ class SignUpController extends GetxController {
     Get.back();
     },
     ));
+    }else if(e.code=='too-many-requests'){
+      Get.bottomSheet(ErrorAlert(
+        message: e.message,
+        onClose: () {
+          loading.value = false;
+          Get.back();
+        },
+      ));
+
     }
     },
     codeSent: (String vId, int? resendToken) {

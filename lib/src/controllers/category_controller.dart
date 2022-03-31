@@ -29,6 +29,7 @@ class CategoryController extends GetxController {
   var inActiveCategory = Category().obs;
   var load = false.obs;
   var typing = false.obs;
+  var qrData;
 
   @override
   void onInit() {
@@ -127,7 +128,9 @@ class CategoryController extends GetxController {
           productController.sortType.value,
           productController.rangeEndPrice.value,
           productController.rangeStartPrice.value,
-          productController.filterBrands);
+          shop!.id.toString(),
+          productController.filterBrands,
+          );
       if (data['success']) {
         for (int i = 0; i < data['data'].length; i++) {
           Map<String, dynamic> item = data['data'][i];

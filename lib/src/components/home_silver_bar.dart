@@ -29,7 +29,7 @@ class HomeSilverBar extends StatelessWidget {
   Widget build(BuildContext context) {
     Shop? shop = shopController.defaultShop.value;
     return SliverAppBar(
-      expandedHeight: 320,
+      expandedHeight: 300,
       floating: false,
       automaticallyImplyLeading: false,
       pinned: true,
@@ -59,7 +59,9 @@ class HomeSilverBar extends StatelessWidget {
           title: AnimatedOpacity(
             duration: Duration(milliseconds: 300),
             opacity: 1.0,
-            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: <
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <
                 Widget>[
               // Container(
               // margin: EdgeInsets.symmetric(horizontal: height > 0 ? 10 : 15),

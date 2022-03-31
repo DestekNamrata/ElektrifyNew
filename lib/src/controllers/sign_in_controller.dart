@@ -77,7 +77,7 @@ class SignInController extends GetxController {
         });
       } else {
         Get.bottomSheet(ErrorAlert(
-          message: "Email or password wrong".tr,
+          message: "Incorrect Number or password".tr,
           onClose: () {
             Get.back();
           },
@@ -96,10 +96,14 @@ class SignInController extends GetxController {
   }
 
   void onChangePhone(String text) {
-    if (text.length > 1) phone.value = text;
+    if (text.length > 1)
+      phone.value = text;
 
-    if (phone.value.length == 0) phone.value = "";
-    if (phone.value[0] != "+") phone.value = "${phone.value}";
+    //commented on 31/03/2022
+    // if (phone.value.length == 0)
+    //   phone.value = "";
+    // if (phone.value[0] != "+")
+    //   phone.value = "${phone.value}";
   }
 
   void onChangePassword(String text) {
