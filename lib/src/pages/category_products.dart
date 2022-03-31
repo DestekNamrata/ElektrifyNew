@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '/src/components/category_item.dart';
 import '/src/components/category_products_item.dart';
 import '/src/components/empty.dart';
 import '/src/components/shadows/category_item_shadow.dart';
@@ -13,15 +12,13 @@ import '/src/models/product.dart';
 
 class CategoryProducts extends GetView<CategoryController> {
   int? qrData;
-  CategoryProducts({Key? key,this.qrData}):super(key: key);
+  CategoryProducts({Key? key, this.qrData}) : super(key: key);
   final CategoryController categoryController = Get.put(CategoryController());
   // int id = 3;
   int id = 3;
   var tabIndex = 0.obs;
-  int listIndexClicked=0;
-  bool isSelected=false;
-
-
+  int listIndexClicked = 0;
+  bool isSelected = false;
 
   Widget loading() {
     return Column(
@@ -46,11 +43,9 @@ class CategoryProducts extends GetView<CategoryController> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-
       id = categoryController.activeCategory.value.id ?? 3;
 
       return SingleChildScrollView(
@@ -81,7 +76,6 @@ class CategoryProducts extends GetView<CategoryController> {
                               if (snapshot.hasData) {
                                 List<Category> categories = snapshot.data!;
                                 return ListView.builder(
-
                                     itemCount: categories.length,
                                     scrollDirection: Axis.horizontal,
                                     itemBuilder: (context, index) {
@@ -97,10 +91,15 @@ class CategoryProducts extends GetView<CategoryController> {
                                       // );
                                       return InkWell(
                                         onTap: () {
-                                          tabIndex.value=index;
-                                          controller.inActiveCategory.value = controller.activeCategory.value;
-                                          controller.activeCategory.value = Category(id: categories[index].id, name: categories[index].name);
-                                          controller.productController.clearFilter();
+                                          tabIndex.value = index;
+                                          controller.inActiveCategory.value =
+                                              controller.activeCategory.value;
+                                          controller.activeCategory.value =
+                                              Category(
+                                                  id: categories[index].id,
+                                                  name: categories[index].name);
+                                          controller.productController
+                                              .clearFilter();
                                           controller.load.value = true;
                                           controller.qrData=null;
 
@@ -113,22 +112,27 @@ class CategoryProducts extends GetView<CategoryController> {
                                             height: 0.05.sh,
                                             width: 0.28.sw,
                                             decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(60),
-                                              color: tabIndex.value==index
-                                                  ? const Color.fromRGBO(69, 165, 36, 1)
-                                                  : const Color.fromRGBO(233, 233, 230, 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(60),
+                                              color: tabIndex.value == index
+                                                  ? const Color.fromRGBO(
+                                                      69, 165, 36, 1)
+                                                  : const Color.fromRGBO(
+                                                      233, 233, 230, 1),
                                             ),
                                             child: Center(
                                               child: Text(
-                                                categories[index].name.toString(),
+                                                categories[index]
+                                                    .name
+                                                    .toString(),
                                                 style: TextStyle(
                                                   fontFamily: 'Inter',
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 14.sp,
                                                   letterSpacing: -0.2,
-                                                  color: tabIndex.value==index
-                                                ? Colors.white
-                                                      :Colors.black,
+                                                  color: tabIndex.value == index
+                                                      ? Colors.white
+                                                      : Colors.black,
 
                                                   // color: id != null
                                                   //     ? Colors.white
@@ -243,15 +247,15 @@ class CategoryProducts extends GetView<CategoryController> {
                 future: controller.getCategoryProducts(id, false),
                 builder: (context, snapshot) {
                   if (snapshot.hasData && !controller.load.value)
-                    // (!controller.load.value || controller.categoryProductList[id]!.isNotEmpty))
+                  // (!controller.load.value || controller.categoryProductList[id]!.isNotEmpty))
                   {
                     List<Widget> row = [];
                     if (snapshot.hasData) {
                       List<Product> products = snapshot.data ?? [];
                       return products.isNotEmpty
                           ? ListView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
                               itemCount: products.length,
                               scrollDirection: Axis.vertical,
                               padding:
