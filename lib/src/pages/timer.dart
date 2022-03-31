@@ -60,6 +60,14 @@ class _TimerState extends State<TimerScreen> {
     super.initState();
     totalDuration = int.parse(widget.duration!) * 60;
     print("total duration $totalDuration");
+    Fluttertoast.showToast(
+        msg: "Charging started",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+        fontSize: 16.0);
   }
 
   @override
