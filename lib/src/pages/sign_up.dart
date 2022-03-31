@@ -42,7 +42,7 @@ class SignUpPageState extends State<SignUpPage> {
           child: Stack(children: <Widget>[
             Container(
                 width: 1.sw,
-                height: 22,
+                height: 25,
                 margin: EdgeInsets.only(top: 0.075.sh, right: 16, left: 30),
                 alignment: Alignment.centerRight,
                 child: Row(
@@ -335,7 +335,7 @@ class SignUpPageState extends State<SignUpPage> {
                                                             () {
                                                               controller.vehicleTypeSelected = vehicleType;
                                                               controller.vehicleModelSelected=null;
-                                                              fetchVehicleModel(controller.manufactureSelected, controller.vehicleTypeSelected);
+                                                              // fetchVehicleModel(controller.manufactureSelected, controller.vehicleTypeSelected);
                                                               },
                                                       );
                                                     },
@@ -447,7 +447,7 @@ class SignUpPageState extends State<SignUpPage> {
                                                             () {
                                                           controller.vehicleModelSelected = model;
                                                           print(
-                                                              controller.vehicleTypeSelected);
+                                                              controller.vehicleModelSelected);
                                                         },
                                                       );
                                                     },
@@ -504,7 +504,7 @@ class SignUpPageState extends State<SignUpPage> {
                                   ),
                                   TextInput(
                                       title: "Phone number *".tr,
-                                      prefix: "+91",
+                                      prefix: "+91 ",
                                       defaultValue: controller.phone.value,
                                       type: TextInputType.number,
                                       onChange: controller.onChangePhone,

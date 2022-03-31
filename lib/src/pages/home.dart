@@ -50,7 +50,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 //  HomeTabs(),
                 // Categories(),
                 //  SubCategoryProducts(),
-                CategoryProducts(qrData:widget.qrdata),
+                CategoryProducts(qrData:categoryController.qrData),
                 //  HomeBrands(),
                 //  HomeCategory(),
               ],
@@ -61,13 +61,15 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         color: Colors.white,
         height: 70,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextButton(
                 child: Text("Pre Book", style: TextStyle(fontSize: 14)),
                 style: ButtonStyle(
                     padding: MaterialStateProperty.all<EdgeInsets>(
-                        EdgeInsets.fromLTRB(40, 15, 40, 15)),
+                        EdgeInsets.fromLTRB(80, 15, 80, 15)
+                    ),
                     foregroundColor:
                         MaterialStateProperty.all<Color>(Colors.green),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -83,31 +85,31 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                     textColor: Colors.white,
                     fontSize: 16.0)),
             // SizedBox(width: 100),
-            TextButton(
-                child: Text("Book Now", style: TextStyle(fontSize: 14)),
-                style: ButtonStyle(
-                    padding: MaterialStateProperty.all<EdgeInsets>(
-                        EdgeInsets.fromLTRB(40, 15, 40, 15)),
-                    foregroundColor:
-                        MaterialStateProperty.all<Color>(Colors.green),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(40.0),
-                            side: BorderSide(color: Colors.green)))),
-                onPressed: () {
-                  // Future.delayed(Duration(milliseconds: 100), () {
-                  //   print(
-                  //       "widget.qrdatawidget.qrdata+++++++++${widget.qrdata!}");
-                  if (widget.qrdata != null) {
-                    Get.to(
-                      ChargeingDetails(qrdata: widget.qrdata!),
-                    );
-                  } else {
-                    Fluttertoast.showToast(msg: "Please select Port");
-                  }
-                }
-                // )
-                ),
+            // TextButton(
+            //     child: Text("Book Now", style: TextStyle(fontSize: 14)),
+            //     style: ButtonStyle(
+            //         padding: MaterialStateProperty.all<EdgeInsets>(
+            //             EdgeInsets.fromLTRB(40, 15, 40, 15)),
+            //         foregroundColor:
+            //             MaterialStateProperty.all<Color>(Colors.green),
+            //         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            //             RoundedRectangleBorder(
+            //                 borderRadius: BorderRadius.circular(40.0),
+            //                 side: BorderSide(color: Colors.green)))),
+            //     onPressed: () {
+            //       // Future.delayed(Duration(milliseconds: 100), () {
+            //       //   print(
+            //       //       "widget.qrdatawidget.qrdata+++++++++${widget.qrdata!}");
+            //       if (categoryController.qrData != null) {
+            //         Get.to(
+            //           ChargeingDetails(qrdata: categoryController.qrData!),
+            //         );
+            //       } else {
+            //         Fluttertoast.showToast(msg: "Please select Port");
+            //       }
+            //     }
+            //     // )
+            //     ),
           ],
         ),
       ),

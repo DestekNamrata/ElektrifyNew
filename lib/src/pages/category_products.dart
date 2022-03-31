@@ -102,6 +102,8 @@ class CategoryProducts extends GetView<CategoryController> {
                                           controller.activeCategory.value = Category(id: categories[index].id, name: categories[index].name);
                                           controller.productController.clearFilter();
                                           controller.load.value = true;
+                                          controller.qrData=null;
+
                                           // controller.categoryProductList[id ?? 3] = [];
                                           // Get.toNamed("/subCategoryProducts");
                                         },
@@ -260,7 +262,8 @@ class CategoryProducts extends GetView<CategoryController> {
                                 return Container(
                                   child: CategoryProductItem(
                                     product: products[index],
-                                    qrData:qrData,
+                                    qrData:controller.qrData,
+
                                   ),
                                 );
                               })

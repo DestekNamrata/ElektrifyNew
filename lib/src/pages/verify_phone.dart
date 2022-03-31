@@ -199,35 +199,35 @@ class VerifyPhonePage extends GetView<SignUpController> {
                                 )),
                           ),
                         ),
-                        Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(top: 0.03.sh),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                "Didn’t recieve code?".tr,
-                                style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                    letterSpacing: -0.5,
-                                    color: Get.isDarkMode
-                                        ? Color.fromRGBO(255, 255, 255, 1)
-                                        : Color.fromRGBO(0, 0, 0, 1)),
-                              ),
-                              Text(
-                                " ${"Request again".tr}",
-                                style: TextStyle(
-                                    fontFamily: 'Inter',
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 14.sp,
-                                    letterSpacing: -0.5,
-                                    color: Color.fromRGBO(69, 165, 36, 1)),
-                              ),
-                            ],
-                          ),
-                        ),
+                        // Container(
+                        //   alignment: Alignment.center,
+                        //   margin: EdgeInsets.only(top: 0.03.sh),
+                        //   child: Row(
+                        //     mainAxisAlignment: MainAxisAlignment.center,
+                        //     children: <Widget>[
+                        //       Text(
+                        //         "Didn’t recieve code?".tr,
+                        //         style: TextStyle(
+                        //             fontFamily: 'Inter',
+                        //             fontWeight: FontWeight.w500,
+                        //             fontSize: 14.sp,
+                        //             letterSpacing: -0.5,
+                        //             color: Get.isDarkMode
+                        //                 ? Color.fromRGBO(255, 255, 255, 1)
+                        //                 : Color.fromRGBO(0, 0, 0, 1)),
+                        //       ),
+                        //       Text(
+                        //         " ${"Request again".tr}",
+                        //         style: TextStyle(
+                        //             fontFamily: 'Inter',
+                        //             fontWeight: FontWeight.w500,
+                        //             fontSize: 14.sp,
+                        //             letterSpacing: -0.5,
+                        //             color: Color.fromRGBO(69, 165, 36, 1)),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // ),
                         Container(
                             width: 0.845.sw,
                             height: 56,

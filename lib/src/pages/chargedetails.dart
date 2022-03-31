@@ -210,8 +210,8 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
                                       color: Colors.black))
                             ],
                           ),
-                          SizedBox(width: 0.2.sw),
-                          Padding(
+                          SizedBox(width: 0.18.sw),
+                          Expanded(child: Padding(
                             padding: const EdgeInsets.only(right: 15.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -258,7 +258,7 @@ class _ChargeingDetailsState extends State<ChargeingDetails> {
                                 )
                               ],
                             ),
-                          ),
+                          )),
                         ],
                       ),
                     ),
