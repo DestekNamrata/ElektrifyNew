@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '/config/global_config.dart';
+
 import '/src/components/text_input.dart';
 import '/src/controllers/sign_up_controller.dart';
 
@@ -28,8 +28,8 @@ class ForgotPasswordPage extends GetView<SignUpController> {
                 margin: EdgeInsets.only(top: 0.099.sh),
                 child: Image(
                   image: AssetImage(Get.isDarkMode
-                      ? "lib/assets/imagesSymbol.png"
-                      : "lib/assets/images/Symbol.png"),
+                      ? "lib/assets/splash_icon.png"
+                      : "lib/assets/images/light_mode/splash_icon.png"),
                   height: 200,
                   width: 200,
                   fit: BoxFit.contain,

@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '/config/global_config.dart';
-import '/src/controllers/sign_up_controller.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class VerifyPhonePage extends GetView<SignUpController> {
+import '/src/controllers/sign_up_controller.dart';
 
+class VerifyPhonePage extends GetView<SignUpController> {
   final TextEditingController textEditingController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -33,8 +32,8 @@ class VerifyPhonePage extends GetView<SignUpController> {
                 margin: EdgeInsets.only(top: 0.099.sh),
                 child: Image(
                   image: AssetImage(Get.isDarkMode
-                      ? "lib/assets/imagesSymbol.png"
-                      : "lib/assets/images/Symbol.png"),
+                      ? "lib/assets/splash_icon.png"
+                      : "lib/assets/images/light_mode/splash_icon.png"),
                   height: 200,
                   width: 200,
                   fit: BoxFit.contain,
@@ -46,7 +45,8 @@ class VerifyPhonePage extends GetView<SignUpController> {
               height: 22,
               margin: EdgeInsets.only(top: 0.075.sh, right: 16, left: 30),
               alignment: Alignment.centerLeft,
-              child: Image.asset("lib/assets/images/light_mode/splash_icon.png"),
+              child:
+                  Image.asset("lib/assets/images/light_mode/splash_icon.png"),
               //  Text(
               //   "$APP_NAME",
               //   style: TextStyle(

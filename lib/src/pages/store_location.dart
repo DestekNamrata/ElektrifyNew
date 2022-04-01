@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -32,10 +35,12 @@ class StoreLocationState extends State<StoreLocation> {
     "DC combo2".tr
   ];
   var tabIndex = 0.obs;
+
   @override
   void initState() {
     super.initState();
     setCustomMapPin();
+    //setMarker();
     Future.delayed(Duration(milliseconds: 500), () {
       setState(() {
         loadGoogleMap = true;
@@ -51,6 +56,7 @@ class StoreLocationState extends State<StoreLocation> {
         print(controller.shopList.toString());
         Map<String, dynamic> shop = controller.shopList[i];
         MarkerId _markerId = MarkerId('marker_id_$i');
+
         Future.delayed(Duration(milliseconds: 500), () {
           setState(() {
             Marker _marker = Marker(
@@ -73,9 +79,13 @@ class StoreLocationState extends State<StoreLocation> {
   }
 
   void setCustomMapPin() async {
+    // pinLocationIcon =
+    //     Image.asset("lib/assets/images/light_mode/Chargestation.png")
+    //         as BitmapDescriptor?;
+
     pinLocationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(size: Size(0.3, 0.5)),
-        'lib/assets/images/Chargestation.png');
+        const ImageConfiguration(size: Size(0.06, 0.06)),
+        'lib/assets/images/light_mode/Chargestation.png');
   }
 
   // static final CameraPosition _kGooglePlex = CameraPosition(
@@ -104,7 +114,7 @@ class StoreLocationState extends State<StoreLocation> {
                           markers: Set<Marker>.of(markers.values),
                           initialCameraPosition: CameraPosition(
                             target: LatLng(latitude, longitude),
-                            zoom: 12.4746,
+                            zoom: 10.4746,
                           ),
                           //  _kGooglePlex,
                           onMapCreated: (GoogleMapController controller) {
@@ -150,9 +160,10 @@ class StoreLocationState extends State<StoreLocation> {
                               ),
                               Container(
                                 height: 40,
+                                margin: EdgeInsets.only(top: 0, bottom: 0),
                                 width: 1.sw,
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 20, vertical: 5),
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
@@ -172,7 +183,8 @@ class StoreLocationState extends State<StoreLocation> {
                                             offset: controller.addressController
                                                 .searchText.value.length),
                                       ),
-                                    textAlignVertical: TextAlignVertical.center,
+                                    //textAlignVertical: TextAlignVertical.center,
+                                    textAlign: TextAlign.start,
                                     onChanged: (text) => controller
                                         .addressController
                                         .onChangeAddressSearchText(text),
@@ -421,4 +433,20 @@ class StoreLocationState extends State<StoreLocation> {
 
     }
   }*/
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))!
+        .buffer
+        .asUint8List();
+  }
+
+  Future<void> setMarker() async {
+    pinLocationIcon =
+        (await getBytesFromAsset('lib/assets/images/Chargestation.png', 100))
+            as BitmapDescriptor?;
+  }
 }
