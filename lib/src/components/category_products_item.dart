@@ -1,8 +1,6 @@
 // ignore_for_file: use_key_in_widget_constructors
 
 import 'package:elektrify/src/controllers/category_controller.dart';
-import 'package:elektrify/src/pages/chargedetails.dart';
-import 'package:elektrify/src/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -16,16 +14,16 @@ class CategoryProductItem extends GetView<ProductController> {
   int? qrData;
   bool? isSelected;
 
-  CategoryProductItem({this.product,this.onClick,this.qrData,this.isSelected});
+  CategoryProductItem(
+      {this.product, this.onClick, this.qrData, this.isSelected});
 
   @override
   Widget build(BuildContext context) {
     int now = DateTime.now().toUtc().millisecondsSinceEpoch;
     bool timerStarted = product!.startTime! <= now && product!.endTime! >= now;
-    CategoryController categoryController=Get.put(CategoryController());
-    return
-      Card(
-        // color: isSelected?Colors.green:Colors.white,
+    CategoryController categoryController = Get.put(CategoryController());
+    return Card(
+      // color: isSelected?Colors.green:Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
@@ -33,20 +31,19 @@ class CategoryProductItem extends GetView<ProductController> {
       shadowColor: Colors.grey,
       child: Padding(
         padding: const EdgeInsets.all(5.0),
-        child:
-        ListTile(
+        child: ListTile(
           selectedColor: Colors.green,
           selectedTileColor: Colors.green,
           selected: false,
           onTap: () {
             controller.activeProduct.value.id;
-            categoryController.qrData=product!.id;
+            categoryController.qrData = product!.id;
 
-            if (categoryController.qrData != null) {
-              Get.to(
-                ChargeingDetails(qrdata: categoryController.qrData!),
-              );
-            }
+            // if (categoryController.qrData != null) {
+            //   Get.to(
+            //     ChargeingDetails(qrdata: categoryController.qrData!),
+            //   );
+            // }
 
             // Get.to(Home(qrdata: product!.id), arguments: [
             //   {},

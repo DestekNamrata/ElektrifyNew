@@ -9,10 +9,8 @@ import '/src/components/order_history_item.dart';
 import '/src/components/order_history_tab.dart';
 import '/src/components/shadows/order_history_item_shadow.dart';
 import '/src/controllers/auth_controller.dart';
-import '/src/controllers/chat_controller.dart';
 import '/src/controllers/language_controller.dart';
 import '/src/controllers/order_controller.dart';
-import '/src/models/chat_user.dart';
 
 class OrderHistory extends StatefulWidget {
   @override
@@ -205,28 +203,28 @@ class OrderHistoryState extends State<OrderHistory>
                                             shopName: data['shop']['language']
                                                 ['name'],
                                             status: 1,
-                                            onTapBtn: () {
-                                              if (data['delivery_boy'] !=
-                                                  null) {
-                                                ChatController chatController =
-                                                    Get.put(ChatController());
-                                                chatController.user.value =
-                                                    ChatUser(
-                                                        imageUrl:
-                                                            data['delivery_boy']
-                                                                ['image_url'],
-                                                        name:
-                                                            "${data['delivery_boy']['name']} ${data['delivery_boy']['surname']}",
-                                                        id: data['delivery_boy']
-                                                            ['id'],
-                                                        role: 2);
-                                              }
-
-                                              orderController
-                                                  .setActiveOrder(data);
-
-                                              showSheet(data);
-                                            },
+                                            // onTapBtn: () {
+                                            //   if (data['delivery_boy'] !=
+                                            //       null) {
+                                            //     ChatController chatController =
+                                            //         Get.put(ChatController());
+                                            //     chatController.user.value =
+                                            //         ChatUser(
+                                            //             imageUrl:
+                                            //                 data['delivery_boy']
+                                            //                     ['image_url'],
+                                            //             name:
+                                            //                 "${data['delivery_boy']['name']} ${data['delivery_boy']['surname']}",
+                                            //             id: data['delivery_boy']
+                                            //                 ['id'],
+                                            //             role: 2);
+                                            //   }
+                                            //
+                                            //   orderController
+                                            //       .setActiveOrder(data);
+                                            //
+                                            //   showSheet(data);
+                                            // },
                                             orderId: data['id'],
                                             orderDate: orderController
                                                 .getTime(data['created_at']),

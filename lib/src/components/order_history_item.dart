@@ -75,25 +75,25 @@ class OrderHistoryItem extends StatelessWidget {
               status == 1
                   ? InkWell(
                       child: Container(
-                          height: 30,
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Color.fromRGBO(255, 184, 0, 1)),
-                          child: Text(
-                            "Open".tr,
-                            style: TextStyle(
-                                fontFamily: 'Inter',
-                                fontWeight: FontWeight.w500,
-                                fontSize: 12.sp,
-                                letterSpacing: -0.5,
-                                color: !Get.isDarkMode
-                                    ? Color.fromRGBO(255, 255, 255, 1)
-                                    : Color.fromRGBO(0, 0, 0, 1)),
-                          )),
-                      onTap: onTapBtn,
-                    )
+                      height: 30,
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      //     decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(15),
+                      //         color: Color.fromRGBO(255, 184, 0, 1)),
+                      //     child: Text(
+                      //       "Open".tr,
+                      //       style: TextStyle(
+                      //           fontFamily: 'Inter',
+                      //           fontWeight: FontWeight.w500,
+                      //           fontSize: 12.sp,
+                      //           letterSpacing: -0.5,
+                      //           color: !Get.isDarkMode
+                      //               ? Color.fromRGBO(255, 255, 255, 1)
+                      //               : Color.fromRGBO(0, 0, 0, 1)),
+                      //     )),
+                      // onTap: onTapBtn,
+                    ))
                   : Container(
                       height: 30,
                       alignment: Alignment.center,
